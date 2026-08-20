@@ -30,9 +30,9 @@
     "@type": "Person",
     "name": "Pratik Yadav",
     "alternateName": ["Pratik", "Yadav"],
-    "jobTitle": "Student & Web Developer",
+    "jobTitle": "Student",
     "nationality": "Nepali",
-    "description": "Science student, content creator, and developer based in Nepal.",
+    "description": "Science student, content creator.",
     "knowsAbout": ["Web Development", "Physics", "Computer Science"]
   }
   </script>
@@ -135,6 +135,14 @@
       animation: fadeIn 1.4s ease-out;
     }
 
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      animation: fadeIn 1.6s ease-out;
+    }
+
     .play-btn {
       position: relative;
       background: linear-gradient(135deg, var(--accent-gold), #d49e19);
@@ -148,7 +156,6 @@
       cursor: pointer;
       box-shadow: 0 0 25px rgba(244, 196, 48, 0.3);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      animation: fadeIn 1.6s ease-out;
     }
 
     .play-btn:hover {
@@ -158,6 +165,37 @@
 
     .play-btn:active {
       transform: translateY(1px) scale(0.98);
+    }
+
+    .notes-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--accent-teal);
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2.2rem;
+      border: 1px solid rgba(78, 224, 209, 0.35);
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .notes-btn:hover {
+      background: rgba(78, 224, 209, 0.08);
+      border-color: rgba(78, 224, 209, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .notes-btn:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    .notes-btn .spark {
+      font-size: 0.9rem;
     }
 
     .game-modal {
@@ -287,7 +325,10 @@
     <span class="badge">Official Website</span>
     <h1 class="name">Pratik Yadav</h1>
     <p class="subtitle">Exploring web development, science, and building interactive digital experiences.</p>
-    <button class="play-btn" id="openGameBtn" aria-label="Play Star Catcher Mini-Game">Play Star Catcher</button>
+    <div class="btn-group">
+      <button class="play-btn" id="openGameBtn" aria-label="Play Star Catcher Mini-Game">Play Star Catcher</button>
+      <a href="notes.html" class="notes-btn" aria-label="Stuff I Learnt notes page"><span class="spark">✦</span> Stuff I Learnt</a>
+    </div>
   </main>
 
   <!-- Interactive Mini-Game Modal -->
@@ -534,4 +575,3 @@
   </script>
 </body>
 </html>
-
