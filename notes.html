@@ -1,227 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stuff I Learnt — Pratik Yadav</title>
-  <meta name="description" content="A running log of things Pratik Yadav is learning — ideas, topics, and small lessons picked up along the way.">
-  <meta name="robots" content="index, follow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Primary SEO -->
+<title>The Power of Metacognition: Enhancing Learning &amp; Self-Regulation | Pratik Yadav</title>
+<meta name="description" content="A research paper by Pratik Yadav on metacognition — the science of thinking about thinking — covering metacognitive knowledge, regulation, real-world examples, and how it drives lifelong learning.">
+<meta name="keywords" content="metacognition, thinking about thinking, self-regulation, metacognitive knowledge, metacognitive regulation, John Flavell, lifelong learning, self-directed learning, Pratik Yadav">
+<meta name="author" content="Pratik Yadav">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://yadavpratik.com.np/notes.html">
+<meta name="theme-color" content="#070B14">
 
-  <style>
-    :root {
-      --bg-dark: #0a0e1a;
-      --bg-mid: #141c30;
-      --bg-card: #101627;
-      --accent-gold: #f4c430;
-      --accent-teal: #4ee0d1;
-      --text-main: #f0f4f8;
-      --text-muted: #94a3b8;
-      --font-display: 'Fraunces', serif;
-      --font-ui: 'Space Grotesk', sans-serif;
-    }
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Power of Metacognition: Enhancing Learning, Self-Regulation, and Human Potential">
+<meta property="og:description" content="A research paper by Pratik Yadav on metacognition — the science of thinking about thinking — and how it shapes self-regulation, learning, and lifelong growth.">
+<meta property="og:url" content="https://yadavpratik.com.np/notes.html">
+<meta property="og:site_name" content="Pratik Yadav">
+<meta property="og:image" content="https://yadavpratik.com.np/assets/og-notes.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="Pratik Yadav">
+<meta property="article:published_time" content="2026-08-21">
+<meta property="article:section" content="Psychology">
+<meta property="article:tag" content="Metacognition">
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Power of Metacognition | Pratik Yadav">
+<meta name="twitter:description" content="Thinking about thinking: a research paper on metacognitive knowledge, regulation, and lifelong learning.">
+<meta name="twitter:image" content="https://yadavpratik.com.np/assets/og-notes.jpg">
 
-    html, body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: var(--font-ui);
-      min-height: 100%;
-    }
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Power of Metacognition: Enhancing Learning, Self-Regulation, and Human Potential",
+  "description": "A research paper on metacognition covering metacognitive knowledge, metacognitive regulation, real-world examples, and its role in lifelong learning.",
+  "author": {
+    "@type": "Person",
+    "name": "Pratik Yadav",
+    "url": "https://yadavpratik.com.np"
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": "Pratik Yadav"
+  },
+  "datePublished": "2026-08-21",
+  "dateModified": "2026-08-21",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://yadavpratik.com.np/notes.html"
+  },
+  "image": "https://yadavpratik.com.np/assets/og-notes.jpg",
+  "keywords": "metacognition, self-regulation, metacognitive knowledge, metacognitive regulation, lifelong learning",
+  "wordCount": 850,
+  "inLanguage": "en"
+}
+</script>
 
-    #skyCanvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 
-    .page {
-      position: relative;
-      z-index: 10;
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 3.5rem 1.5rem 5rem;
-    }
+<style>
+  :root{
+    --navy-950:#070B14;
+    --navy-900:#0D1524;
+    --navy-800:#131E33;
+    --line:#22304A;
+    --cream:#F2EEE3;
+    --slate:#8B96AC;
+    --gold:#C9A961;
+    --gold-bright:#E4C784;
+    --max:680px;
+  }
 
-    .top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2.5rem;
-    }
+  *{box-sizing:border-box;}
 
-    .back-link {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: color 0.2s ease;
-    }
+  html{scroll-behavior:smooth;}
 
-    .back-link:hover { color: var(--accent-teal); }
+  body{
+    margin:0;
+    background:var(--navy-950);
+    color:var(--cream);
+    font-family:'Space Grotesk', sans-serif;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    position:relative;
+    overflow-x:hidden;
+  }
 
-    h1.page-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 6vw, 3.2rem);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
+  /* subtle static starfield, decorative */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(242,238,227,.5), transparent),
+      radial-gradient(1px 1px at 25% 40%, rgba(242,238,227,.35), transparent),
+      radial-gradient(1.5px 1.5px at 60% 10%, rgba(242,238,227,.4), transparent),
+      radial-gradient(1px 1px at 80% 30%, rgba(242,238,227,.3), transparent),
+      radial-gradient(1px 1px at 92% 65%, rgba(242,238,227,.4), transparent),
+      radial-gradient(1.5px 1.5px at 40% 75%, rgba(242,238,227,.3), transparent),
+      radial-gradient(1px 1px at 15% 85%, rgba(242,238,227,.35), transparent),
+      radial-gradient(1px 1px at 70% 90%, rgba(242,238,227,.25), transparent);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    pointer-events:none;
+    z-index:0;
+    opacity:.7;
+  }
 
-    p.page-subtitle {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      max-width: 480px;
-      margin-bottom: 2.75rem;
-    }
+  a{color:var(--gold-bright);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--gold-bright); outline-offset:3px;}
 
-    .entry {
-      background: var(--bg-card);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 16px;
-      padding: 1.75rem;
-      margin-bottom: 1.25rem;
-      transition: border-color 0.25s ease, transform 0.25s ease;
-    }
+  .wrap{position:relative; z-index:1;}
 
-    .entry:hover {
-      border-color: rgba(78, 224, 209, 0.3);
-      transform: translateY(-2px);
-    }
+  header.site{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:32px 24px 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  header.site .brand{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.05rem;
+    color:var(--cream);
+    text-decoration:none;
+    letter-spacing:.02em;
+  }
+  header.site nav a{
+    font-size:.85rem;
+    color:var(--slate);
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  header.site nav a:hover{color:var(--gold-bright); border-color:var(--gold-bright);}
 
-    .entry-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.6rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
+  main{max-width:var(--max); margin:0 auto; padding:56px 24px 40px;}
 
-    .entry-tag {
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--accent-teal);
-      background: rgba(78, 224, 209, 0.1);
-      border: 1px solid rgba(78, 224, 209, 0.25);
-      padding: 0.25rem 0.65rem;
-      border-radius: 50px;
-    }
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-size:.72rem;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 18px;
+  }
 
-    .entry-date {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(1.9rem, 5vw, 2.6rem);
+    line-height:1.18;
+    margin:0 0 18px;
+    color:var(--cream);
+  }
 
-    .entry-title {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-      color: var(--text-main);
-    }
+  .byline{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 10px;
+    align-items:center;
+    color:var(--slate);
+    font-size:.88rem;
+    margin-bottom:40px;
+  }
+  .byline .dot{opacity:.5;}
+  .byline strong{color:var(--cream); font-weight:500;}
 
-    .entry-body {
-      color: var(--text-muted);
-      font-size: 0.98rem;
-      line-height: 1.65;
-    }
+  blockquote.thesis{
+    margin:0 0 48px;
+    padding:28px 0 28px 24px;
+    border-left:2px solid var(--gold);
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(1.15rem, 2.6vw, 1.4rem);
+    line-height:1.5;
+    color:var(--gold-bright);
+  }
+  blockquote.thesis span{
+    display:block;
+    margin-top:10px;
+    font-family:'Space Grotesk', sans-serif;
+    font-style:normal;
+    font-size:.8rem;
+    letter-spacing:.04em;
+    color:var(--slate);
+  }
 
-    .entry-source {
-      margin-top: 0.9rem;
-      font-size: 0.85rem;
-      color: rgba(244, 196, 48, 0.85);
-      font-style: italic;
-    }
+  article section{margin-bottom:8px;}
 
-    .empty-hint {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      text-align: center;
-      padding: 2rem 0 0;
-      border-top: 1px dashed rgba(255,255,255,0.1);
-      margin-top: 1rem;
-    }
-  </style>
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.5rem;
+    color:var(--cream);
+    margin:0 0 4px;
+  }
+  h2 + .part-label{display:none;}
+
+  h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-style:italic;
+    font-size:1.12rem;
+    color:var(--gold-bright);
+    margin:34px 0 12px;
+  }
+
+  p{margin:0 0 18px; color:#DCD8CC; font-size:1rem;}
+
+  ol.steps{
+    margin:0 0 20px;
+    padding:0;
+    list-style:none;
+    counter-reset:step;
+    border-top:1px solid var(--line);
+  }
+  ol.steps li{
+    counter-increment:step;
+    padding:16px 0 16px 40px;
+    position:relative;
+    border-bottom:1px solid var(--line);
+    color:#DCD8CC;
+  }
+  ol.steps li::before{
+    content:counter(step, decimal-leading-zero);
+    position:absolute;
+    left:0;
+    top:16px;
+    font-family:'Fraunces', serif;
+    font-size:.85rem;
+    color:var(--gold);
+  }
+  ol.steps li strong{color:var(--cream); font-weight:600;}
+
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:52px 0;
+    color:var(--line);
+  }
+  .divider svg{width:120px; height:24px; display:block;}
+
+  .part-heading{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin:0 0 22px;
+  }
+  .part-heading .num{
+    font-family:'Fraunces', serif;
+    font-size:1.6rem;
+    color:var(--gold);
+    font-weight:400;
+  }
+
+  footer{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:20px 24px 56px;
+    border-top:1px solid var(--line);
+    padding-top:28px;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  footer .copyright{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--slate);
+    font-size:.82rem;
+  }
+  footer .copyright svg{width:15px; height:15px; flex-shrink:0;}
+  footer a{color:var(--slate); font-size:.82rem; text-decoration:none;}
+  footer a:hover{color:var(--gold-bright);}
+
+  @media (max-width:520px){
+    header.site{padding-top:24px;}
+    main{padding-top:40px;}
+    blockquote.thesis{padding-left:16px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
 </head>
 <body>
+<div class="wrap">
 
-  <canvas id="skyCanvas" aria-hidden="true"></canvas>
+  <header class="site">
+    <a class="brand" href="\">Pratik Yadav</a>
+    <nav><a href="\">&larr; Back to home</a></nav>
+  </header>
 
-  <div class="page">
-    <div class="top-row">
-      <a href="\" class="back-link">&larr; Back home</a>
+  <main>
+    <article>
+      <p class="eyebrow">Research Paper &middot; Psychology</p>
+      <h1>The Power of Metacognition: Enhancing Learning, Self-Regulation, and Human Potential</h1>
+      <div class="byline">
+        <span>By <strong>Pratik Yadav</strong></span>
+        <span class="dot">&middot;</span>
+        <span><time datetime="2026-08-21">21 August 2026</time></span>
+        <span class="dot">&middot;</span>
+        <span>4 min read</span>
+      </div>
+
+      <blockquote class="thesis">
+        &ldquo;Thinking about thinking&rdquo; &mdash; the capacity to step back from an action, observe your own cognitive processes, and assess your own behaviour.
+        <span>The working definition of metacognition, introduced by developmental psychologist John Flavell in 1979.</span>
+      </blockquote>
+
+      <section>
+        <div class="part-heading"><span class="num">I</span><h2>Introduction and Theoretical Foundations</h2></div>
+
+        <h3>Defining metacognition</h3>
+        <p>Metacognition is fundamental to human self-awareness and learning. It can be described simply as thinking about thinking &mdash; the capacity to step back from an immediate action, observe the cognitive processes at work, and assess one&rsquo;s own behaviour. The developmental psychologist John Flavell introduced the term in 1979 to explain how people monitor and control their own learning. Rather than only reacting to a situation or carrying out a task, a metacognitive thinker considers why they acted in a particular way, and how they might improve their approach next time.</p>
+
+        <h3>Metacognitive reflection in everyday life</h3>
+        <p>Metacognition often begins with a small shift in perspective. Picture someone who sees a scooter accident on the street and reacts immediately out of shock &mdash; a straightforward cognitive response. As they continue walking, though, they start to think more deeply about what happened: could they have intervened, and what would they do differently if it happened again? That extra layer of thought turns a simple observation into metacognitive reflection.</p>
+        <p>The same pattern shows up in academic life. A student asked a question in class might get nervous and give an incomplete answer. Later, at home, they replay the moment, consider what went wrong, and think about how the answer could have been worded better. In both cases, metacognition turns a passing event into a structured lesson for future behaviour.</p>
+      </section>
+
+      <div class="divider" aria-hidden="true">
+        <svg viewBox="0 0 120 24" fill="none"><path d="M0 20L22 6L34 16L52 2L68 18L84 8L98 16L120 4" stroke="currentColor" stroke-width="1.2"/><circle cx="34" cy="16" r="1.4" fill="#C9A961"/><circle cx="84" cy="8" r="1.4" fill="#C9A961"/></svg>
+      </div>
+
+      <section>
+        <div class="part-heading"><span class="num">II</span><h2>Core Components and Practical Application</h2></div>
+
+        <h3>Metacognitive knowledge vs. metacognitive regulation</h3>
+        <p>Understanding how metacognition works starts with its two main parts. <strong style="color:var(--cream); font-weight:600;">Metacognitive knowledge</strong> is a person&rsquo;s passive awareness of their own cognitive tendencies, strengths, and the demands of a given task &mdash; for instance, knowing that you learn best from visual information. <strong style="color:var(--cream); font-weight:600;">Metacognitive regulation</strong> is the active, real-time control of cognitive processes, and it happens in three stages:</p>
+
+        <ol class="steps">
+          <li><strong>Planning</strong> &mdash; choosing strategies, setting goals, and preparing before a task begins.</li>
+          <li><strong>Monitoring</strong> &mdash; checking progress as the task unfolds: &ldquo;Is this strategy working, or am I going off track?&rdquo;</li>
+          <li><strong>Evaluating</strong> &mdash; assessing the outcome afterward to refine strategy for next time.</li>
+        </ol>
+
+        <h3>A real-world example: public speaking and adaptation</h3>
+        <p>The shift from a purely cognitive reaction to metacognitive regulation is easy to see in public speaking. A young student asked to give a speech in front of the class might be overwhelmed by nerves, start to cry, and be unable to finish.</p>
+        <p>Back home, the student reflects on what happened and examines why they were so anxious. The next time they&rsquo;re asked to speak, they draw on that reflection &mdash; rather than repeating the panic response, they adjust their mindset and approach, and the speech goes well. This progression illustrates how metacognitive reflection enables self-regulation, adaptive learning, and real behavioural change.</p>
+      </section>
+
+      <div class="divider" aria-hidden="true">
+        <svg viewBox="0 0 120 24" fill="none"><path d="M0 20L22 6L34 16L52 2L68 18L84 8L98 16L120 4" stroke="currentColor" stroke-width="1.2"/><circle cx="34" cy="16" r="1.4" fill="#C9A961"/><circle cx="84" cy="8" r="1.4" fill="#C9A961"/></svg>
+      </div>
+
+      <section>
+        <div class="part-heading"><span class="num">III</span><h2>Overcoming Psychological Barriers and Lifelong Benefits</h2></div>
+
+        <h3>Hyper-monitoring, reflection tools, and the fear of judgment</h3>
+        <p>Metacognitive reflection matters, but how people practice it varies &mdash; and it can come with its own difficulties. Many people keep a reflective journal, recording their activities, mistakes, and accomplishments. Over time this creates a record they can use to spot patterns and improve systematically.</p>
+        <p>People also regulate their thoughts through close internal observation &mdash; staying quiet in a group discussion, for example, while weighing others&rsquo; views. Taken too far, though, this can turn into hyper-analysis: rehearsing a thought over and over to make it &ldquo;perfect&rdquo; before speaking.</p>
+        <p>In collaborative settings, when that hyper-monitoring comes from a fear of judgment, it becomes a barrier to learning. Holding back ideas disrupts the feedback process and prevents people from testing their assumptions. Overcoming that fear matters &mdash; metacognition should be a tool for growth, not a source of anxiety.</p>
+
+        <h3>Conclusion: metacognition and continuous growth</h3>
+        <p>Strong metacognitive skills are essential for lifelong learning and professional success. Students, teachers, engineers, doctors, and entrepreneurs who use them become self-directed learners.</p>
+        <p>By continually examining past mistakes, refining problem-solving strategies, and replacing the fear of judgment with active self-correction, people can keep becoming better versions of themselves over a lifetime. Metacognition, in that sense, is what makes continuous personal and professional growth possible.</p>
+      </section>
+    </article>
+  </main>
+
+  <footer>
+    <div class="copyright">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M14.5 9a3 3 0 1 0 0 6"/></svg>
+      <span>&copy; 2026 Pratik Yadav. All rights reserved.</span>
     </div>
+    
+  </footer>
 
-    <h1 class="page-title">Stuff I Learnt</h1>
-    <p class="page-subtitle">A running log of ideas and lessons I pick up — often from my brother, sometimes from wherever curiosity leads.</p>
-
-    <div class="entries">
-      <article class="entry">
-        <div class="entry-meta">
-          <span class="entry-tag">Psychology</span>
-          <span class="entry-date">August 2026</span>
-        </div>
-        <h2 class="entry-title">Metacognition</h2>
-        <p class="entry-body">
-          Metacognition is "thinking about thinking"  being aware of how you learn, plan, and check your own understanding instead of just absorbing information passively. It covers things like noticing when you've actually understood something versus just recognized it, planning your approach before starting a task, and reflecting on what worked afterward.
-        </p>
-        <p class="entry-source">Suggested by my brother — still digging deeper into this one.</p>
-      </article>
-
-      <p class="empty-hint">More entries coming soon.</p>
-    </div>
-  </div>
-
-  <script>
-    const skyCanvas = document.getElementById('skyCanvas');
-    const skyCtx = skyCanvas.getContext('2d');
-    let stars = [];
-
-    function resizeSky() {
-      skyCanvas.width = window.innerWidth;
-      skyCanvas.height = window.innerHeight;
-      initStars();
-    }
-
-    function initStars() {
-      stars = [];
-      const numStars = Math.floor((skyCanvas.width * skyCanvas.height) / 4500);
-      for (let i = 0; i < numStars; i++) {
-        stars.push({
-          x: Math.random() * skyCanvas.width,
-          y: Math.random() * skyCanvas.height,
-          radius: Math.random() * 1.4 + 0.4,
-          alpha: Math.random(),
-          speed: Math.random() * 0.015 + 0.004
-        });
-      }
-    }
-
-    function drawSky() {
-      skyCtx.clearRect(0, 0, skyCanvas.width, skyCanvas.height);
-      stars.forEach(star => {
-        star.alpha += star.speed;
-        if (star.alpha > 1 || star.alpha < 0) star.speed = -star.speed;
-        skyCtx.fillStyle = `rgba(244, 196, 48, ${Math.abs(star.alpha)})`;
-        skyCtx.beginPath();
-        skyCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        skyCtx.fill();
-      });
-      requestAnimationFrame(drawSky);
-    }
-
-    window.addEventListener('resize', resizeSky);
-    resizeSky();
-    drawSky();
-  </script>
+</div>
 </body>
 </html>
