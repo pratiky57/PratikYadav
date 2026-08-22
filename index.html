@@ -3,25 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    if (window.location.protocol !== 'file:' && !['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+      if (window.location.pathname.endsWith('/index.html')) {
+        window.location.replace(window.location.origin + '/');
+      }
+    }
+  </script>
 
   <!-- Primary Meta Tags -->
   <title>Pratik Yadav — Official Website & Portfolio</title>
   <meta name="title" content="Pratik Yadav — Official Website & Portfolio">
-  <meta name="description" content="Official website of Pratik Yadav. Exploring web development, science, and interactive digital experiences. Play Star Catcher and explore projects">
-  <meta name="keywords" content="Pratik Yadav, Pratik Yadav Nepal, Pratik Yadav official website, Pratik Yadav developer, Pratik Yadav game">
+  <meta name="description" content="Official website of Pratik Yadav. Exploring web development, science, and interactive digital experiences. Play Star Catcher and read notes.">
+  <meta name="keywords" content="Pratik Yadav, Pratik Yadav Nepal, Pratik Yadav official website, Pratik Yadav developer, Pratik Yadav game, metacognition, eye vs camera">
   <meta name="author" content="Pratik Yadav">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://yadavpratik.com.np/">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Pratik Yadav — Official Website">
-  <meta property="og:description" content="Official homepage of Pratik Yadav. Interactive web projects, physics insights, and browser games.">
-  <meta property="og:image" content="https://pratikyadav.com.np/og-image.jpg">
+  <meta property="og:url" content="https://yadavpratik.com.np/">
+  <meta property="og:title" content="Pratik Yadav — Official Website & Portfolio">
+  <meta property="og:description" content="Official homepage of Pratik Yadav. Interactive web projects, research notes on psychology and optics, and browser games.">
+  <meta property="og:image" content="https://yadavpratik.com.np/og-image.jpg">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Pratik Yadav — Official Website">
+  <meta name="twitter:url" content="https://yadavpratik.com.np/">
+  <meta name="twitter:title" content="Pratik Yadav — Official Website & Portfolio">
   <meta name="twitter:description" content="Official homepage of Pratik Yadav. Interactive web projects and browser games.">
+  <meta name="twitter:image" content="https://yadavpratik.com.np/og-image.jpg">
 
   <!-- Structured Data (JSON-LD Person Schema) -->
   <script type="application/ld+json">
@@ -30,10 +41,12 @@
     "@type": "Person",
     "name": "Pratik Yadav",
     "alternateName": ["Pratik", "Yadav"],
+    "url": "https://yadavpratik.com.np",
+    "image": "https://yadavpratik.com.np/og-image.jpg",
     "jobTitle": "Student & Web Developer",
     "nationality": "Nepali",
-    "description": "Science student, content creator, and developer based in Nepal.",
-    "knowsAbout": ["Web Development", "Physics", "Computer Science"]
+    "description": "Science student and developer exploring web development, physics, and cognitive science.",
+    "knowsAbout": ["Web Development", "Physics", "Computer Science", "Metacognition", "Optics"]
   }
   </script>
 
