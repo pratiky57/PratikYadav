@@ -5,3 +5,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://yadavpratik.com.np/sitemap.xml
+
