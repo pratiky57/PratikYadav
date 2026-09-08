@@ -29,8 +29,8 @@ No build tools needed. Just open a file directly in your browser:
 
 ```bash
 # clone the repo
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/pratiky57/PratikYadav.git
+cd PratikYadav
 
 # open any page directly
 open tug-of-war-math.html   # macOS
