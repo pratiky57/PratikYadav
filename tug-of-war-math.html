@@ -6,7 +6,7 @@
 <title>Tug of War Math Game – Free Multiplication & Times Tables Practice</title>
 <meta name="description" content="Play Tug of War Math free online: a two-team multiplication and times-tables game for the classroom or home. Answer fast, pull the rope, and win the match. Works on phone, tablet, and desktop.">
 <meta name="keywords" content="tug of war math, math game, multiplication game, times tables game, classroom math game, kids math practice, free math game online">
-<meta name="author" content="Yadav Pratik">
+<meta name="author" content="Pratik Yadav">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://yadavpratik.com.np/tug-of-war-math.html">
 
@@ -15,7 +15,7 @@
 <meta property="og:title" content="Tug of War Math Game – Free Multiplication & Times Tables Practice">
 <meta property="og:description" content="A two-team tug-of-war math game. Every correct answer pulls the rope toward your side — first team to the target score wins. Free to play, mobile-friendly.">
 <meta property="og:url" content="https://yadavpratik.com.np/tug-of-war-math.html">
-<meta property="og:site_name" content="Yadav Pratik">
+<meta property="og:site_name" content="Pratik Yadav">
 <meta property="og:locale" content="en_US">
 
 <!-- Twitter Card -->
@@ -42,7 +42,7 @@
   "isAccessibleForFree": true,
   "publisher": {
     "@type": "Person",
-    "name": "Yadav Pratik"
+    "name": "Pratik Yadav"
   }
 }
 </script>
@@ -65,6 +65,25 @@
     --panel-line:rgba(245,243,238,.14);
     --good:#5fd068;
     --radius:14px;
+    --card-bg:#152640;
+    --field-bg:rgba(245,243,238,.05);
+    --btn-primary-bg:#f5f3ee;
+    --btn-primary-ink:#12203a;
+  }
+  html[data-theme="light"]{
+    --bg:#f4f2ec;
+    --bg-2:#ffffff;
+    --line:rgba(18,32,58,.08);
+    --ink:#152640;
+    --ink-dim:rgba(21,38,64,.6);
+    --team-a-dark:#8a5c00;
+    --team-b-dark:#8a1518;
+    --panel:rgba(21,38,64,.04);
+    --panel-line:rgba(21,38,64,.13);
+    --card-bg:#ffffff;
+    --field-bg:rgba(21,38,64,.05);
+    --btn-primary-bg:#152640;
+    --btn-primary-ink:#f5f3ee;
   }
   *{box-sizing:border-box;}
   .visually-hidden{
@@ -77,6 +96,7 @@
     border:0;
   }
   html,body{height:100%;}
+  html{ touch-action:manipulation; }
   body{
     margin:0;
     min-height:100vh;
@@ -89,6 +109,8 @@
     display:flex;
     flex-direction:column;
     overflow-x:hidden;
+    touch-action:manipulation;
+    transition:background-color .25s ease, color .25s ease;
   }
   .display, .num{
     font-family:'Oswald',system-ui,sans-serif;
@@ -123,6 +145,7 @@
     text-align:center;
     letter-spacing:.03em;
   }
+  .topbar-left{display:flex;align-items:center;gap:12px;}
   .icon-btn{
     width:38px;height:38px;
     border-radius:10px;
@@ -132,6 +155,8 @@
     display:flex;align-items:center;justify-content:center;
     cursor:pointer;
     font-size:1.05rem;
+    text-decoration:none;
+    touch-action:manipulation;
     transition:background .15s, transform .15s;
   }
   .icon-btn:hover{background:rgba(245,243,238,.09);}
@@ -144,6 +169,9 @@
     flex-direction:column;
     padding:18px;
     gap:14px;
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
   }
   .goal-caption{
     text-align:center;
@@ -277,6 +305,7 @@
     font-weight:500;
     cursor:pointer;
     -webkit-tap-highlight-color:transparent;
+    touch-action:manipulation;
     transition:background .12s, transform .08s;
   }
   .key:hover{background:rgba(245,243,238,.1);}
@@ -399,6 +428,13 @@
   }
   .seo-info h2:first-child{margin-top:0;}
 
+  .copyright{
+    text-align:center;
+    color:var(--ink-dim);
+    font-size:.78rem;
+    padding:0 22px 26px;
+  }
+
   /* ---------- Overlays ---------- */
   .overlay{
     position:fixed; inset:0;
@@ -412,7 +448,7 @@
   }
   .overlay.hidden{display:none;}
   .card{
-    background:#152640;
+    background:var(--card-bg);
     border:1px solid var(--panel-line);
     border-radius:18px;
     padding:28px 26px;
@@ -443,7 +479,7 @@
     padding:10px 12px;
     border-radius:9px;
     border:1px solid var(--panel-line);
-    background:rgba(245,243,238,.05);
+    background:var(--field-bg);
     color:var(--ink);
     font-family:'Inter',sans-serif;
     font-size:.95rem;
@@ -458,10 +494,11 @@
     font-size:1.02rem;
     cursor:pointer;
     margin-top:4px;
+    touch-action:manipulation;
     transition:transform .1s, opacity .15s;
   }
   .btn:active{transform:scale(.97);}
-  .btn-primary{background:var(--ink); color:#12203a;}
+  .btn-primary{background:var(--btn-primary-bg); color:var(--btn-primary-ink);}
   .btn-ghost{
     background:transparent;
     color:var(--ink-dim);
@@ -505,9 +542,13 @@
   <h1 class="visually-hidden">Tug of War: Math – Free Two-Team Multiplication Game</h1>
 
   <div class="topbar">
-    <div class="brand"><span class="dot-a">●</span> Tug of War <span class="dot-b">●</span> Math</div>
+    <div class="topbar-left">
+      <a class="icon-btn home-btn" href="https://yadavpratik.com.np/" title="Back to home" aria-label="Back to home">🏠</a>
+      <div class="brand"><span class="dot-a">●</span> Tug of War <span class="dot-b">●</span> Math</div>
+    </div>
     <div class="topbar-right">
       <div class="timer" id="timerDisplay">00:00</div>
+      <button class="icon-btn" id="themeToggle" title="Switch theme" aria-label="Switch light/dark theme">🌙</button>
       <button class="icon-btn" id="settingsBtn" title="Settings" aria-label="Settings">⚙</button>
       <button class="icon-btn" id="restartBtn" title="Restart match" aria-label="Restart match">↻</button>
     </div>
@@ -572,6 +613,8 @@
     <h2>Why it's great for practicing math facts</h2>
     <p>Fast, low-pressure repetition is one of the best ways to build fluency with multiplication tables and mental math. The head-to-head format keeps students engaged, works on any phone, tablet, or classroom display, and lets you adjust the number range and win score to match the level of your students.</p>
   </section>
+
+  <div class="copyright">© <span id="copyYear">2026</span> Pratik Yadav. All rights reserved.</div>
 
   <!-- Start / Settings overlay -->
   <div class="overlay" id="startOverlay">
@@ -907,6 +950,35 @@
   el.restartBtn.addEventListener('click', function(){
     newMatch();
   });
+
+  // ---------- Theme toggle (persisted per browser) ----------
+  const themeToggleBtn = document.getElementById('themeToggle');
+  const copyYearEl = document.getElementById('copyYear');
+  if(copyYearEl){ copyYearEl.textContent = new Date().getFullYear(); }
+
+  function applyTheme(theme){
+    document.documentElement.setAttribute('data-theme', theme);
+    if(themeToggleBtn){ themeToggleBtn.textContent = theme === 'light' ? '🌙' : '☀️'; }
+    try{ localStorage.setItem('tugOfWarMathTheme', theme); }catch(e){}
+  }
+
+  (function initTheme(){
+    let saved = null;
+    try{ saved = localStorage.getItem('tugOfWarMathTheme'); }catch(e){}
+    if(saved === 'light' || saved === 'dark'){
+      applyTheme(saved);
+    } else {
+      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+      applyTheme(prefersLight ? 'light' : 'dark');
+    }
+  })();
+
+  if(themeToggleBtn){
+    themeToggleBtn.addEventListener('click', function(){
+      const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+      applyTheme(current === 'light' ? 'dark' : 'light');
+    });
+  }
 
   updateTimerDisplay();
 })();
