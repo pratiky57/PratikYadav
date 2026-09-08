@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tug of War Math Game – Free Multiplication & Times Tables Practice</title>
+<meta name="description" content="Play Tug of War Math free online: a two-team multiplication and times-tables game for the classroom or home. Answer fast, pull the rope, and win the match. Works on phone, tablet, and desktop.">
+<meta name="keywords" content="tug of war math, math game, multiplication game, times tables game, classroom math game, kids math practice, free math game online">
+<meta name="author" content="Yadav Pratik">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://yadavpratik.com.np/tug-of-war-math.html">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tug of War Math Game – Free Multiplication & Times Tables Practice">
+<meta property="og:description" content="A two-team tug-of-war math game. Every correct answer pulls the rope toward your side — first team to the target score wins. Free to play, mobile-friendly.">
+<meta property="og:url" content="https://yadavpratik.com.np/tug-of-war-math.html">
+<meta property="og:site_name" content="Yadav Pratik">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tug of War Math Game – Free Multiplication & Times Tables Practice">
+<meta name="twitter:description" content="A two-team tug-of-war math game. Every correct answer pulls the rope toward your side — first team to the target score wins.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Game",
+  "name": "Tug of War: Math",
+  "url": "https://yadavpratik.com.np/tug-of-war-math.html",
+  "description": "A free, browser-based two-team tug-of-war math game for practicing multiplication and times tables. Every correct answer pulls the rope toward your side.",
+  "genre": "Educational",
+  "gamePlatform": "Web browser",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Any",
+  "isAccessibleForFree": true,
+  "publisher": {
+    "@type": "Person",
+    "name": "Yadav Pratik"
+  }
+}
+</script>
+<style>
+  :root{
+    --bg:#0f1b2d;
+    --bg-2:#132340;
+    --line:rgba(245,243,238,.07);
+    --ink:#f5f3ee;
+    --ink-dim:rgba(245,243,238,.58);
+    --team-a:#ffb703;
+    --team-a-dark:#c98a00;
+    --team-a-glow:rgba(255,183,3,.35);
+    --team-b:#e5383b;
+    --team-b-dark:#a3181b;
+    --team-b-glow:rgba(229,56,59,.35);
+    --rope:#c9a66b;
+    --rope-dark:#8b5e34;
+    --panel:rgba(245,243,238,.045);
+    --panel-line:rgba(245,243,238,.14);
+    --good:#5fd068;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  .visually-hidden{
+    position:absolute !important;
+    width:1px;height:1px;
+    padding:0;margin:-1px;
+    overflow:hidden;
+    clip:rect(0,0,0,0);
+    white-space:nowrap;
+    border:0;
+  }
+  html,body{height:100%;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, var(--bg-2), transparent),
+      repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 80px),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    display:flex;
+    flex-direction:column;
+    overflow-x:hidden;
+  }
+  .display, .num{
+    font-family:'Oswald',system-ui,sans-serif;
+    font-weight:600;
+  }
+
+  /* ---------- Top bar ---------- */
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px 22px;
+    border-bottom:1px solid var(--line);
+  }
+  .brand{
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:1.15rem;
+    letter-spacing:.02em;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .brand .dot-a{color:var(--team-a);}
+  .brand .dot-b{color:var(--team-b);}
+  .topbar-right{display:flex;align-items:center;gap:10px;}
+  .timer{
+    font-family:'Oswald',sans-serif;
+    font-size:1.05rem;
+    color:var(--ink-dim);
+    min-width:64px;
+    text-align:center;
+    letter-spacing:.03em;
+  }
+  .icon-btn{
+    width:38px;height:38px;
+    border-radius:10px;
+    border:1px solid var(--panel-line);
+    background:var(--panel);
+    color:var(--ink);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    font-size:1.05rem;
+    transition:background .15s, transform .15s;
+  }
+  .icon-btn:hover{background:rgba(245,243,238,.09);}
+  .icon-btn:active{transform:scale(.92);}
+
+  /* ---------- Arena ---------- */
+  .arena-wrap{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    padding:18px;
+    gap:14px;
+  }
+  .goal-caption{
+    text-align:center;
+    color:var(--ink-dim);
+    font-size:.82rem;
+    letter-spacing:.03em;
+  }
+  .goal-caption b{color:var(--ink);font-weight:600;}
+
+  .arena{
+    display:grid;
+    grid-template-columns:1fr 1.15fr 1fr;
+    gap:14px;
+    flex:1;
+  }
+  @media (max-width:820px){
+    .arena{grid-template-columns:1fr; grid-template-rows:auto auto auto;}
+  }
+  @media (max-width:480px){
+    .topbar{padding:12px 14px;}
+    .brand{font-size:1rem;}
+    .arena-wrap{padding:12px;gap:10px;}
+    .team-panel{padding:12px;gap:10px;}
+    .question-text{font-size:1.5rem;}
+    .score{font-size:1.3rem;}
+    .key{padding:13px 0;font-size:1rem;}
+    .stage{min-height:170px;padding:14px 6px;}
+    .track{margin:44px 0 34px;}
+    .card{padding:22px 18px;}
+  }
+
+  /* ---------- Team panels ---------- */
+  .team-panel{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:var(--radius);
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    transition:box-shadow .2s, border-color .2s;
+  }
+  .team-panel.correct-flash{animation:flashGood .5s ease;}
+  .team-panel.wrong-flash{animation:shake .4s ease;}
+  @keyframes flashGood{
+    0%{box-shadow:0 0 0 0 transparent;}
+    30%{box-shadow:0 0 0 4px var(--flash-color);}
+    100%{box-shadow:0 0 0 0 transparent;}
+  }
+  @keyframes shake{
+    0%,100%{transform:translateX(0);}
+    20%{transform:translateX(-6px);}
+    40%{transform:translateX(6px);}
+    60%{transform:translateX(-4px);}
+    80%{transform:translateX(4px);}
+  }
+
+  .team-a .team-panel, .panel-a{--flash-color:var(--team-a-glow);}
+  .panel-b{--flash-color:var(--team-b-glow);}
+
+  .team-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .team-name{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:.95rem;
+    letter-spacing:.02em;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .team-name .swatch{
+    width:10px;height:10px;border-radius:3px;
+  }
+  .panel-a .swatch{background:var(--team-a);}
+  .panel-b .swatch{background:var(--team-b);}
+
+  .score{
+    font-family:'Oswald',sans-serif;
+    font-weight:700;
+    font-size:1.6rem;
+    line-height:1;
+  }
+  .panel-a .score{color:var(--team-a);}
+  .panel-b .score{color:var(--team-b);}
+  .score-of{font-size:.85rem;color:var(--ink-dim);font-weight:500;}
+
+  .question-box{
+    background:rgba(0,0,0,.18);
+    border-radius:10px;
+    padding:14px;
+    text-align:center;
+  }
+  .question-text{
+    font-family:'Oswald',sans-serif;
+    font-size:1.9rem;
+    font-weight:600;
+  }
+  .answer-display{
+    margin-top:8px;
+    height:38px;
+    border-radius:8px;
+    background:rgba(245,243,238,.06);
+    border:1px solid var(--panel-line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Oswald',sans-serif;
+    font-size:1.2rem;
+    letter-spacing:.05em;
+    color:var(--ink);
+  }
+  .answer-display.placeholder{color:var(--ink-dim);}
+
+  .keypad{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+  }
+  .key{
+    padding:12px 0;
+    border-radius:9px;
+    border:1px solid var(--panel-line);
+    background:rgba(245,243,238,.04);
+    color:var(--ink);
+    font-family:'Oswald',sans-serif;
+    font-size:1.05rem;
+    font-weight:500;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    transition:background .12s, transform .08s;
+  }
+  .key:hover{background:rgba(245,243,238,.1);}
+  .key:active{transform:scale(.94);}
+  .key.clear{color:var(--ink-dim);}
+  .panel-a .key.submit{background:var(--team-a);color:#241900;border-color:var(--team-a);}
+  .panel-b .key.submit{background:var(--team-b);color:#2a0506;border-color:var(--team-b);}
+  .panel-a .key.submit:hover{background:var(--team-a-dark);color:var(--ink);}
+  .panel-b .key.submit:hover{background:var(--team-b-dark);color:var(--ink);}
+
+  /* ---------- Rope stage ---------- */
+  .stage{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:var(--radius);
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:20px 10px;
+    min-height:220px;
+    overflow:hidden;
+  }
+  .center-line{
+    position:absolute;
+    top:14px; bottom:14px;
+    left:50%;
+    width:1px;
+    background:repeating-linear-gradient(to bottom, var(--panel-line) 0 6px, transparent 6px 12px);
+  }
+  .goal-flag{
+    position:absolute;
+    top:10px;
+    font-size:.75rem;
+    color:var(--ink-dim);
+    letter-spacing:.03em;
+    font-family:'Oswald',sans-serif;
+  }
+  .goal-flag.left{left:8%;}
+  .goal-flag.right{right:8%; text-align:right;}
+
+  .track{
+    position:relative;
+    width:100%;
+    height:6px;
+    margin:56px 0 44px;
+    border-radius:4px;
+    background:linear-gradient(90deg, var(--team-a-dark), var(--rope-dark) 45%, var(--rope-dark) 55%, var(--team-b-dark));
+  }
+  .knot{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:26px;height:26px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #fff6e0, var(--rope) 55%, var(--rope-dark));
+    border:2px solid rgba(0,0,0,.25);
+    transform:translate(-50%,-50%);
+    transition:left .5s cubic-bezier(.34,1.56,.64,1);
+    box-shadow:0 2px 8px rgba(0,0,0,.4);
+  }
+
+  .figures{
+    position:absolute;
+    top:50%;
+    display:flex;
+    gap:2px;
+    transform:translateY(-50%);
+    transition:left .6s cubic-bezier(.34,1.56,.64,1), right .6s cubic-bezier(.34,1.56,.64,1);
+  }
+  .figures.team-a{left:6%;}
+  .figures.team-b{right:6%; flex-direction:row-reverse;}
+  .fig{
+    display:flex;
+    align-items:flex-end;
+    transition:transform .18s ease;
+  }
+  .fig svg{ display:block; width:34px; height:48px; overflow:visible; }
+  .figures.team-a .fig svg{ color:var(--team-a); }
+  .figures.team-b .fig svg{ color:var(--team-b); transform:scaleX(-1); }
+  .fig .skin{ fill:#f2b783; }
+  .fig .shirt{ fill:currentColor; }
+  .fig .pants{ fill:#2b3446; }
+  .fig .band{ fill:#f5f3ee; }
+  .figures.pull .fig{transform:translateX(var(--pull-dir,0)) rotate(var(--pull-rot,0deg));}
+  @media (max-width:480px){
+    .fig svg{ width:26px; height:36px; }
+  }
+
+  .stage-caption{
+    color:var(--ink-dim);
+    font-size:.78rem;
+    text-align:center;
+    max-width:260px;
+  }
+
+  /* ---------- Footer / settings row ---------- */
+  .footer{
+    padding:10px 22px 18px;
+    text-align:center;
+    color:var(--ink-dim);
+    font-size:.78rem;
+  }
+
+  .seo-info{
+    max-width:760px;
+    margin:0 auto;
+    padding:8px 22px 40px;
+    color:var(--ink-dim);
+    font-size:.86rem;
+    line-height:1.6;
+  }
+  .seo-info h2{
+    font-family:'Oswald',sans-serif;
+    color:var(--ink);
+    font-size:1rem;
+    font-weight:600;
+    margin:18px 0 6px;
+  }
+  .seo-info h2:first-child{margin-top:0;}
+
+  /* ---------- Overlays ---------- */
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(6,10,20,.82);
+    backdrop-filter:blur(3px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:50;
+  }
+  .overlay.hidden{display:none;}
+  .card{
+    background:#152640;
+    border:1px solid var(--panel-line);
+    border-radius:18px;
+    padding:28px 26px;
+    max-width:380px;
+    width:100%;
+    text-align:center;
+  }
+  .card h2{
+    font-family:'Oswald',sans-serif;
+    font-size:1.6rem;
+    margin:0 0 6px;
+    font-weight:700;
+  }
+  .card p{color:var(--ink-dim); font-size:.9rem; margin:0 0 18px; line-height:1.5;}
+  .field{
+    text-align:left;
+    margin-bottom:14px;
+  }
+  .field label{
+    display:block;
+    font-size:.78rem;
+    color:var(--ink-dim);
+    margin-bottom:6px;
+    letter-spacing:.02em;
+  }
+  .field select, .field input{
+    width:100%;
+    padding:10px 12px;
+    border-radius:9px;
+    border:1px solid var(--panel-line);
+    background:rgba(245,243,238,.05);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:.95rem;
+  }
+  .btn{
+    width:100%;
+    padding:13px 0;
+    border-radius:10px;
+    border:none;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:1.02rem;
+    cursor:pointer;
+    margin-top:4px;
+    transition:transform .1s, opacity .15s;
+  }
+  .btn:active{transform:scale(.97);}
+  .btn-primary{background:var(--ink); color:#12203a;}
+  .btn-ghost{
+    background:transparent;
+    color:var(--ink-dim);
+    border:1px solid var(--panel-line);
+    margin-top:10px;
+  }
+  .win-swatch{
+    width:52px;height:52px;
+    border-radius:50%;
+    margin:0 auto 14px;
+  }
+
+  .confetti{
+    position:fixed; inset:0; pointer-events:none; z-index:60; overflow:hidden;
+  }
+  .confetti span{
+    position:absolute; top:-10px;
+    width:8px; height:14px;
+    opacity:.9;
+    animation:fall linear forwards;
+  }
+  @keyframes fall{
+    to{ transform:translateY(110vh) rotate(360deg); opacity:.2; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Reusable cartoon figure (mirrored via CSS for the opposing team) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="figMan" viewBox="0 0 40 60">
+      <path class="pants" d="M14 39 L7 58 L14 58 L19 41 Z"/>
+      <path class="pants" d="M22 39 L29 57 L35 57 L26 39 Z"/>
+      <path class="shirt" d="M11 19 Q8 31 15 42 L28 39 Q26 25 23 13 Z"/>
+      <path class="shirt" d="M23 17 Q34 12 38 19 L36 23 Q29 19 21 23 Z"/>
+      <circle class="skin" cx="19" cy="10" r="8"/>
+      <path class="band" d="M11 8 Q19 2 27 8 L27 11 Q19 6.5 11 11 Z"/>
+    </symbol>
+  </svg>
+
+  <h1 class="visually-hidden">Tug of War: Math – Free Two-Team Multiplication Game</h1>
+
+  <div class="topbar">
+    <div class="brand"><span class="dot-a">●</span> Tug of War <span class="dot-b">●</span> Math</div>
+    <div class="topbar-right">
+      <div class="timer" id="timerDisplay">00:00</div>
+      <button class="icon-btn" id="settingsBtn" title="Settings" aria-label="Settings">⚙</button>
+      <button class="icon-btn" id="restartBtn" title="Restart match" aria-label="Restart match">↻</button>
+    </div>
+  </div>
+
+  <div class="arena-wrap">
+    <div class="goal-caption">First team to <b id="winScoreLabel">10</b> points wins the pull</div>
+
+    <div class="arena">
+      <!-- Team A -->
+      <div class="team-panel panel-a" id="panelA">
+        <div class="team-head">
+          <div class="team-name"><span class="swatch"></span>Team Gold</div>
+          <div class="score"><span id="scoreA">0</span><span class="score-of">/<span id="winScoreLabelA">10</span></span></div>
+        </div>
+        <div class="question-box">
+          <div class="question-text" id="questionA">–</div>
+          <div class="answer-display placeholder" id="inputA">answer</div>
+        </div>
+        <div class="keypad" id="keypadA"></div>
+      </div>
+
+      <!-- Rope stage -->
+      <div class="stage">
+        <div class="goal-flag left">GOAL</div>
+        <div class="goal-flag right">GOAL</div>
+        <div class="center-line"></div>
+        <div class="track">
+          <div class="knot" id="knot"></div>
+        </div>
+        <div class="figures team-a" id="figuresA" aria-hidden="true">
+          <div class="fig"><svg><use href="#figMan"></use></svg></div>
+          <div class="fig"><svg><use href="#figMan"></use></svg></div>
+        </div>
+        <div class="figures team-b" id="figuresB" aria-hidden="true">
+          <div class="fig"><svg><use href="#figMan"></use></svg></div>
+          <div class="fig"><svg><use href="#figMan"></use></svg></div>
+        </div>
+        <div class="stage-caption">Every correct answer pulls the rope toward your side.</div>
+      </div>
+
+      <!-- Team B -->
+      <div class="team-panel panel-b" id="panelB">
+        <div class="team-head">
+          <div class="team-name"><span class="swatch"></span>Team Crimson</div>
+          <div class="score"><span id="scoreB">0</span><span class="score-of">/<span id="winScoreLabelB">10</span></span></div>
+        </div>
+        <div class="question-box">
+          <div class="question-text" id="questionB">–</div>
+          <div class="answer-display placeholder" id="inputB">answer</div>
+        </div>
+        <div class="keypad" id="keypadB"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">Tap a team's keypad to answer their question · Built for the classroom</div>
+
+  <section class="seo-info">
+    <h2>How to Play Tug of War: Math</h2>
+    <p>Tug of War: Math is a free two-team multiplication and times-tables game you can play right in your browser — no download needed. Split your class or family into Team Gold and Team Crimson. Each team gets its own question and number pad. Every correct answer pulls the rope toward that team's side; the first team to reach the target score wins the pull.</p>
+    <h2>Why it's great for practicing math facts</h2>
+    <p>Fast, low-pressure repetition is one of the best ways to build fluency with multiplication tables and mental math. The head-to-head format keeps students engaged, works on any phone, tablet, or classroom display, and lets you adjust the number range and win score to match the level of your students.</p>
+  </section>
+
+  <!-- Start / Settings overlay -->
+  <div class="overlay" id="startOverlay">
+    <div class="card">
+      <h2>Tug of War: Math</h2>
+      <p>Two teams, one rope. Answer fastest and most accurately to pull the rope to your side.</p>
+      <div class="field">
+        <label for="opSelect">Question type</label>
+        <select id="opSelect">
+          <option value="mul">Multiplication only</option>
+          <option value="mixed">Mixed (+ − ×)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="rangeSelect">Number range</label>
+        <select id="rangeSelect">
+          <option value="5">Tables 1–5</option>
+          <option value="10" selected>Tables 1–10</option>
+          <option value="12">Tables 1–12</option>
+          <option value="20">Tables 1–20</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="winScoreInput">Points to win</label>
+        <input type="number" id="winScoreInput" value="10" min="2" max="30">
+      </div>
+      <button class="btn btn-primary" id="startBtn">Start match</button>
+    </div>
+  </div>
+
+  <!-- Win overlay -->
+  <div class="overlay hidden" id="winOverlay">
+    <div class="card">
+      <div class="win-swatch" id="winSwatch"></div>
+      <h2 id="winTitle">Team Gold wins!</h2>
+      <p id="winSub">6 points to 3 · 00:52</p>
+      <button class="btn btn-primary" id="rematchBtn">Rematch, same settings</button>
+      <button class="btn btn-ghost" id="newSettingsBtn">Change settings</button>
+    </div>
+  </div>
+
+  <div class="confetti" id="confetti"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- State ----------
+  const state = {
+    winScore: 10,
+    range: 10,
+    opMode: 'mul',
+    scoreA: 0,
+    scoreB: 0,
+    inputA: '',
+    inputB: '',
+    qA: null,
+    qB: null,
+    active: false,
+    seconds: 0,
+    timerId: null
+  };
+
+  // ---------- Elements ----------
+  const el = {
+    startOverlay: document.getElementById('startOverlay'),
+    winOverlay: document.getElementById('winOverlay'),
+    startBtn: document.getElementById('startBtn'),
+    rematchBtn: document.getElementById('rematchBtn'),
+    newSettingsBtn: document.getElementById('newSettingsBtn'),
+    settingsBtn: document.getElementById('settingsBtn'),
+    restartBtn: document.getElementById('restartBtn'),
+    opSelect: document.getElementById('opSelect'),
+    rangeSelect: document.getElementById('rangeSelect'),
+    winScoreInput: document.getElementById('winScoreInput'),
+    timerDisplay: document.getElementById('timerDisplay'),
+    scoreA: document.getElementById('scoreA'),
+    scoreB: document.getElementById('scoreB'),
+    winScoreLabel: document.getElementById('winScoreLabel'),
+    winScoreLabelA: document.getElementById('winScoreLabelA'),
+    winScoreLabelB: document.getElementById('winScoreLabelB'),
+    questionA: document.getElementById('questionA'),
+    questionB: document.getElementById('questionB'),
+    inputA: document.getElementById('inputA'),
+    inputB: document.getElementById('inputB'),
+    panelA: document.getElementById('panelA'),
+    panelB: document.getElementById('panelB'),
+    keypadA: document.getElementById('keypadA'),
+    keypadB: document.getElementById('keypadB'),
+    knot: document.getElementById('knot'),
+    figuresA: document.getElementById('figuresA'),
+    figuresB: document.getElementById('figuresB'),
+    winTitle: document.getElementById('winTitle'),
+    winSub: document.getElementById('winSub'),
+    winSwatch: document.getElementById('winSwatch'),
+    confetti: document.getElementById('confetti')
+  };
+
+  // ---------- Helpers ----------
+  function randInt(min, max){ return Math.floor(Math.random() * (max - min + 1)) + min; }
+
+  function generateQuestion(){
+    const r = state.range;
+    if(state.opMode === 'mixed'){
+      const ops = ['+','-','×'];
+      const op = ops[randInt(0,2)];
+      let a, b, answer, text;
+      if(op === '+'){
+        a = randInt(1, r); b = randInt(1, r);
+        answer = a + b; text = a + ' + ' + b;
+      } else if(op === '-'){
+        a = randInt(1, r); b = randInt(1, r);
+        if(b > a){ const t = a; a = b; b = t; }
+        answer = a - b; text = a + ' − ' + b;
+      } else {
+        a = randInt(1, r); b = randInt(1, r);
+        answer = a * b; text = a + ' × ' + b;
+      }
+      return { text: text + ' = ?', answer };
+    }
+    const a = randInt(1, r), b = randInt(1, r);
+    return { text: a + ' × ' + b + ' = ?', answer: a * b };
+  }
+
+  function pad(n){ return n < 10 ? '0' + n : '' + n; }
+
+  function updateTimerDisplay(){
+    const m = Math.floor(state.seconds / 60), s = state.seconds % 60;
+    el.timerDisplay.textContent = pad(m) + ':' + pad(s);
+  }
+
+  function startTimer(){
+    stopTimer();
+    state.seconds = 0;
+    updateTimerDisplay();
+    state.timerId = setInterval(function(){
+      state.seconds++;
+      updateTimerDisplay();
+    }, 1000);
+  }
+  function stopTimer(){
+    if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
+  }
+
+  function buildKeypad(container, team){
+    container.innerHTML = '';
+    const layout = ['1','2','3','4','5','6','7','8','9','C','0','✓'];
+    layout.forEach(function(label){
+      const btn = document.createElement('button');
+      btn.className = 'key' + (label === 'C' ? ' clear' : '') + (label === '✓' ? ' submit' : '');
+      btn.textContent = label;
+      btn.type = 'button';
+      btn.addEventListener('click', function(){ handleKey(team, label); });
+      container.appendChild(btn);
+    });
+  }
+
+  function handleKey(team, label){
+    if(!state.active) return;
+    const key = team === 'A' ? 'inputA' : 'inputB';
+    if(label === 'C'){
+      state[key] = '';
+    } else if(label === '✓'){
+      submitAnswer(team);
+      return;
+    } else {
+      if(state[key].length < 5) state[key] += label;
+    }
+    renderInput(team);
+  }
+
+  function renderInput(team){
+    const disp = team === 'A' ? el.inputA : el.inputB;
+    const val = team === 'A' ? state.inputA : state.inputB;
+    if(val === ''){
+      disp.textContent = 'answer';
+      disp.classList.add('placeholder');
+    } else {
+      disp.textContent = val;
+      disp.classList.remove('placeholder');
+    }
+  }
+
+  function renderQuestion(team){
+    const q = generateQuestion();
+    if(team === 'A'){ state.qA = q; el.questionA.textContent = q.text; state.inputA = ''; renderInput('A'); }
+    else { state.qB = q; el.questionB.textContent = q.text; state.inputB = ''; renderInput('B'); }
+  }
+
+  function flash(panel, good){
+    panel.classList.remove('correct-flash','wrong-flash');
+    void panel.offsetWidth;
+    panel.classList.add(good ? 'correct-flash' : 'wrong-flash');
+  }
+
+  function pullFigures(team){
+    const grp = team === 'A' ? el.figuresA : el.figuresB;
+    const dir = team === 'A' ? '6px' : '-6px';
+    grp.classList.add('pull');
+    grp.style.setProperty('--pull-dir', dir);
+    setTimeout(function(){
+      grp.classList.remove('pull');
+      grp.style.setProperty('--pull-dir', '0px');
+    }, 220);
+  }
+
+  function submitAnswer(team){
+    const q = team === 'A' ? state.qA : state.qB;
+    const val = team === 'A' ? state.inputA : state.inputB;
+    const panel = team === 'A' ? el.panelA : el.panelB;
+    if(val === '') return;
+    const correct = parseInt(val, 10) === q.answer;
+    if(correct){
+      if(team === 'A'){ state.scoreA++; el.scoreA.textContent = state.scoreA; }
+      else { state.scoreB++; el.scoreB.textContent = state.scoreB; }
+      flash(panel, true);
+      pullFigures(team);
+      updateRope();
+      if(checkWin()) return;
+      renderQuestion(team);
+    } else {
+      flash(panel, false);
+      if(team === 'A'){ state.inputA = ''; renderInput('A'); }
+      else { state.inputB = ''; renderInput('B'); }
+    }
+  }
+
+  const FIG_BASE = 6;      // resting distance (%) from the stage edge
+  const FIG_MAX_MOVE = 46; // how far (%) the losing team can be dragged toward the winner
+
+  function updateRope(){
+    const diff = Math.max(-state.winScore, Math.min(state.winScore, state.scoreA - state.scoreB));
+    // Positive diff (Team A ahead) pulls the knot toward Team A's own side (left).
+    const pct = 50 - (diff / state.winScore) * 40; // 10%..90%
+    el.knot.style.left = pct + '%';
+    updateFigurePositions(diff / state.winScore); // -1 (B way ahead) .. 1 (A way ahead)
+  }
+
+  function updateFigurePositions(lead){
+    const move = Math.abs(lead) * FIG_MAX_MOVE;
+    if(lead > 0){
+      // Team A is winning: Team A holds its ground, Team B is dragged toward Team A.
+      el.figuresA.style.left = FIG_BASE + '%';
+      el.figuresB.style.right = (FIG_BASE + move) + '%';
+    } else if(lead < 0){
+      // Team B is winning: Team B holds its ground, Team A is dragged toward Team B.
+      el.figuresB.style.right = FIG_BASE + '%';
+      el.figuresA.style.left = (FIG_BASE + move) + '%';
+    } else {
+      el.figuresA.style.left = FIG_BASE + '%';
+      el.figuresB.style.right = FIG_BASE + '%';
+    }
+  }
+
+  function checkWin(){
+    if(state.scoreA >= state.winScore){ endGame('A'); return true; }
+    if(state.scoreB >= state.winScore){ endGame('B'); return true; }
+    return false;
+  }
+
+  function endGame(winner){
+    state.active = false;
+    stopTimer();
+    const name = winner === 'A' ? 'Team Gold' : 'Team Crimson';
+    const color = winner === 'A' ? getComputedStyle(document.documentElement).getPropertyValue('--team-a') : getComputedStyle(document.documentElement).getPropertyValue('--team-b');
+    el.winTitle.textContent = name + ' wins!';
+    el.winSwatch.style.background = color;
+    el.winSub.textContent = state.scoreA + ' – ' + state.scoreB + ' points · ' + el.timerDisplay.textContent + ' on the clock';
+    el.winOverlay.classList.remove('hidden');
+    launchConfetti(winner === 'A' ? '#ffb703' : '#e5383b');
+  }
+
+  function launchConfetti(color){
+    el.confetti.innerHTML = '';
+    const colors = [color, '#f5f3ee', '#c9a66b'];
+    for(let i = 0; i < 60; i++){
+      const s = document.createElement('span');
+      s.style.left = (Math.random() * 100) + 'vw';
+      s.style.background = colors[randInt(0,2)];
+      s.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+      s.style.animationDelay = (Math.random() * 0.4) + 's';
+      s.style.transform = 'rotate(' + randInt(0,360) + 'deg)';
+      el.confetti.appendChild(s);
+    }
+    setTimeout(function(){ el.confetti.innerHTML = ''; }, 4000);
+  }
+
+  function applySettingsFromForm(){
+    state.opMode = el.opSelect.value;
+    state.range = parseInt(el.rangeSelect.value, 10);
+    let ws = parseInt(el.winScoreInput.value, 10);
+    if(!ws || ws < 2) ws = 10;
+    if(ws > 30) ws = 30;
+    state.winScore = ws;
+    el.winScoreLabel.textContent = ws;
+    el.winScoreLabelA.textContent = ws;
+    el.winScoreLabelB.textContent = ws;
+  }
+
+  function newMatch(){
+    state.scoreA = 0; state.scoreB = 0;
+    el.scoreA.textContent = '0'; el.scoreB.textContent = '0';
+    el.knot.style.left = '50%';
+    updateFigurePositions(0);
+    state.active = true;
+    renderQuestion('A');
+    renderQuestion('B');
+    startTimer();
+    el.startOverlay.classList.add('hidden');
+    el.winOverlay.classList.add('hidden');
+  }
+
+  // ---------- Wire up ----------
+  buildKeypad(el.keypadA, 'A');
+  buildKeypad(el.keypadB, 'B');
+
+  el.startBtn.addEventListener('click', function(){
+    applySettingsFromForm();
+    newMatch();
+  });
+  el.rematchBtn.addEventListener('click', function(){
+    newMatch();
+  });
+  el.newSettingsBtn.addEventListener('click', function(){
+    el.winOverlay.classList.add('hidden');
+    el.startOverlay.classList.remove('hidden');
+  });
+  el.settingsBtn.addEventListener('click', function(){
+    state.active = false;
+    stopTimer();
+    el.startOverlay.classList.remove('hidden');
+  });
+  el.restartBtn.addEventListener('click', function(){
+    newMatch();
+  });
+
+  updateTimerDisplay();
+})();
+</script>
+</body>
+</html>
