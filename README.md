@@ -1,40 +1,59 @@
-# Pratik Yadav — Official Website & Portfolio
+# yadavpratik.com.np
 
-Welcome to the official source repository for my personal landing page and interactive web application, hosted at **[yadavpratik.com.np](https://yadavpratik.com.np)**.
+Personal website of **Pratik Yadav** — computer engineering student. This repository holds the static pages behind [yadavpratik.com.np](https://yadavpratik.com.np/): a couple of short blog notes and a browser-based math game built for classroom use.
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Build](https://img.shields.io/badge/status-active-brightgreen.svg)
-![Platform](https://img.shields.io/badge/platform-GitHub%20Pages-lightgrey.svg)
-![CDN](https://img.shields.io/badge/CDN-Cloudflare-orange.svg)
+## 📄 Pages
 
----
+### `notes.html`
+A small notes/blog page with two posts:
+- **Metacognition** — thinking about thinking, and why it matters for learning.
+- **Seeing vs. a Camera** — the difference between how human eyes perceive the world and how a camera captures it.
 
-## 🌟 Overview
+### `tug-of-war-math.html`
+A free, self-contained two-team math game — **Tug of War: Math**. Built for use on a classroom smart board / interactive display.
 
-This website serves as a lightweight, interactive personal portal for **Pratik Yadav**. It is built with zero framework dependencies for maximum performance, featuring a custom HTML5 canvas animation and an embedded browser game.
+- Two teams (Team Gold vs. Team Crimson) each get their own question and number pad.
+- Every correct answer pulls a rope toward that team's side — first team to the target score wins.
+- Adjustable question type (multiplication only or mixed +, −, ×), number range, and win score.
+- Responsive layout for phone, tablet, and desktop, with a light/dark theme toggle.
+- No build step, no dependencies beyond a Google Fonts link — just open the HTML file.
+- SEO-ready: meta tags, Open Graph/Twitter cards, and structured data included.
 
-### Features
-- **Hero Section:** Sleek typography powered by *Fraunces* and *Space Grotesk*.
-- **Interactive Background:** Dynamic night sky canvas with ambient twinkling stars and mountain silhouettes.
-- **Star Catcher Mini-Game:** Canvas-based arcade game with real-time collision detection, particle effects, mobile touch controls, and high-score tracking.
-- **SEO & Schema Ready:** Structured JSON-LD schema markup for Google Search indexing and entity recognition.
-- **Fast Performance:** Deployed via **GitHub Pages** behind **Cloudflare CDN** for low latency and high availability.
+## 🛠️ Tech stack
 
----
+Plain **HTML, CSS, and vanilla JavaScript** — no frameworks, no bundler, no npm install. Every page is a single self-contained file, which keeps things fast and easy to host anywhere static files are served (GitHub Pages, Netlify, cPanel, etc.).
 
-## 🚀 Built With
+## 🚀 Running locally
 
-- **HTML5 & CSS3** — Responsive layout with CSS variables and flexbox/grid.
-- **Vanilla JavaScript (ES6+)** — HTML5 Canvas API for animations and game engine.
-- **GitHub Pages** — Free static web hosting.
-- **Cloudflare** — DNS management, SSL encryption, and CDN caching.
+No build tools needed. Just open a file directly in your browser:
 
----
+```bash
+# clone the repo
+git clone https://github.com/<your-username>/<repo-name>.git
+cd <repo-name>
 
-## 🛠️ How to Run Locally
+# open any page directly
+open tug-of-war-math.html   # macOS
+start tug-of-war-math.html  # Windows
+xdg-open tug-of-war-math.html  # Linux
+```
 
-Since this project uses no build tools or package managers, running it locally is simple:
+Or serve the folder with any static server, e.g.:
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/pratiky57/PratikYadav.git](https://github.com/pratiky57/PratikYadav.git)
+```bash
+npx serve .
+```
+
+## 🌐 Live site
+
+- Website: [yadavpratik.com.np](https://yadavpratik.com.np/)
+- Tug of War: Math: [yadavpratik.com.np/tug-of-war-math.html](https://yadavpratik.com.np/tug-of-war-math.html)
+
+## 👤 Author
+
+**Pratik Yadav** — Computer Engineering student.
+Website: [yadavpratik.com.np](https://yadavpratik.com.np/)
+
+## 📄 License
+
+© 2026 Pratik Yadav. All rights reserved.
