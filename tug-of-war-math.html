@@ -50,9 +50,10 @@
   :root{
     --bg:#0f1b2d;
     --bg-2:#132340;
-    --line:rgba(245,243,238,.07);
+    --ink-rgb:245,243,238;
     --ink:#f5f3ee;
-    --ink-dim:rgba(245,243,238,.58);
+    --line:rgba(var(--ink-rgb),.07);
+    --ink-dim:rgba(var(--ink-rgb),.58);
     --team-a:#ffb703;
     --team-a-dark:#c98a00;
     --team-a-glow:rgba(255,183,3,.35);
@@ -61,27 +62,28 @@
     --team-b-glow:rgba(229,56,59,.35);
     --rope:#c9a66b;
     --rope-dark:#8b5e34;
-    --panel:rgba(245,243,238,.045);
-    --panel-line:rgba(245,243,238,.14);
+    --panel:rgba(var(--ink-rgb),.045);
+    --panel-line:rgba(var(--ink-rgb),.14);
     --good:#5fd068;
     --radius:14px;
     --card-bg:#152640;
-    --field-bg:rgba(245,243,238,.05);
+    --field-bg:rgba(var(--ink-rgb),.05);
     --btn-primary-bg:#f5f3ee;
     --btn-primary-ink:#12203a;
   }
   html[data-theme="light"]{
     --bg:#f4f2ec;
     --bg-2:#ffffff;
-    --line:rgba(18,32,58,.08);
+    --ink-rgb:21,38,64;
     --ink:#152640;
-    --ink-dim:rgba(21,38,64,.6);
+    --line:rgba(var(--ink-rgb),.08);
+    --ink-dim:rgba(var(--ink-rgb),.6);
     --team-a-dark:#8a5c00;
     --team-b-dark:#8a1518;
-    --panel:rgba(21,38,64,.04);
-    --panel-line:rgba(21,38,64,.13);
+    --panel:rgba(var(--ink-rgb),.04);
+    --panel-line:rgba(var(--ink-rgb),.13);
     --card-bg:#ffffff;
-    --field-bg:rgba(21,38,64,.05);
+    --field-bg:rgba(var(--ink-rgb),.05);
     --btn-primary-bg:#152640;
     --btn-primary-ink:#f5f3ee;
   }
@@ -100,17 +102,13 @@
   body{
     margin:0;
     min-height:100vh;
-    background:
-      radial-gradient(ellipse 900px 500px at 50% -10%, var(--bg-2), transparent),
-      repeating-linear-gradient(90deg, var(--line) 0 1px, transparent 1px 80px),
-      var(--bg);
+    background:var(--bg);
     color:var(--ink);
     font-family:'Inter',system-ui,-apple-system,sans-serif;
     display:flex;
     flex-direction:column;
     overflow-x:hidden;
     touch-action:manipulation;
-    transition:background-color .25s ease, color .25s ease;
   }
   .display, .num{
     font-family:'Oswald',system-ui,sans-serif;
@@ -156,11 +154,10 @@
     cursor:pointer;
     font-size:1.05rem;
     text-decoration:none;
-    touch-action:manipulation;
-    transition:background .15s, transform .15s;
+    touch-action:none;
+    transition:transform .1s;
   }
-  .icon-btn:hover{background:rgba(245,243,238,.09);}
-  .icon-btn:active{transform:scale(.92);}
+  .icon-btn.pressed{transform:scale(.88);}
 
   /* ---------- Arena ---------- */
   .arena-wrap{
@@ -194,9 +191,10 @@
     .topbar{padding:12px 14px;}
     .brand{font-size:1rem;}
     .arena-wrap{padding:12px;gap:10px;}
-    .team-panel{padding:12px;gap:10px;}
+    .team-head{padding:12px 14px;}
+    .team-body{padding:12px;gap:10px;}
     .question-text{font-size:1.5rem;}
-    .score{font-size:1.3rem;}
+    .score-badge{font-size:1rem;}
     .key{padding:13px 0;font-size:1rem;}
     .stage{min-height:170px;padding:14px 6px;}
     .track{margin:44px 0 34px;}
@@ -205,21 +203,19 @@
 
   /* ---------- Team panels ---------- */
   .team-panel{
-    background:var(--panel);
-    border:1px solid var(--panel-line);
-    border-radius:var(--radius);
-    padding:16px;
+    background:var(--card-bg);
+    border-radius:18px;
+    overflow:hidden;
     display:flex;
     flex-direction:column;
-    gap:12px;
-    transition:box-shadow .2s, border-color .2s;
+    box-shadow:0 2px 10px rgba(0,0,0,.12);
   }
   .team-panel.correct-flash{animation:flashGood .5s ease;}
   .team-panel.wrong-flash{animation:shake .4s ease;}
   @keyframes flashGood{
-    0%{box-shadow:0 0 0 0 transparent;}
+    0%{box-shadow:0 2px 10px rgba(0,0,0,.12);}
     30%{box-shadow:0 0 0 4px var(--flash-color);}
-    100%{box-shadow:0 0 0 0 transparent;}
+    100%{box-shadow:0 2px 10px rgba(0,0,0,.12);}
   }
   @keyframes shake{
     0%,100%{transform:translateX(0);}
@@ -229,65 +225,70 @@
     80%{transform:translateX(4px);}
   }
 
-  .team-a .team-panel, .panel-a{--flash-color:var(--team-a-glow);}
+  .panel-a{--flash-color:var(--team-a-glow);}
   .panel-b{--flash-color:var(--team-b-glow);}
 
   .team-head{
     display:flex;
     align-items:center;
     justify-content:space-between;
+    padding:14px 18px;
+    color:#241900;
   }
+  .panel-a .team-head{background:var(--team-a);}
+  .panel-b .team-head{background:var(--team-b); color:#fff;}
   .team-name{
     font-family:'Oswald',sans-serif;
-    font-weight:600;
-    font-size:.95rem;
+    font-weight:700;
+    font-size:1.05rem;
     letter-spacing:.02em;
-    display:flex;
-    align-items:center;
-    gap:8px;
   }
-  .team-name .swatch{
-    width:10px;height:10px;border-radius:3px;
-  }
-  .panel-a .swatch{background:var(--team-a);}
-  .panel-b .swatch{background:var(--team-b);}
-
-  .score{
+  .score-badge{
+    background:rgba(255,255,255,.32);
+    border-radius:20px;
+    padding:4px 12px;
     font-family:'Oswald',sans-serif;
     font-weight:700;
-    font-size:1.6rem;
-    line-height:1;
+    font-size:1.15rem;
+    line-height:1.2;
   }
-  .panel-a .score{color:var(--team-a);}
-  .panel-b .score{color:var(--team-b);}
-  .score-of{font-size:.85rem;color:var(--ink-dim);font-weight:500;}
+  .score-of{font-size:.8rem;font-weight:500;opacity:.85;}
+
+  .team-body{
+    padding:16px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
 
   .question-box{
-    background:rgba(0,0,0,.18);
-    border-radius:10px;
+    background:var(--field-bg);
+    border-radius:12px;
     padding:14px;
     text-align:center;
   }
   .question-text{
     font-family:'Oswald',sans-serif;
     font-size:1.9rem;
-    font-weight:600;
+    font-weight:700;
+    color:var(--ink);
   }
   .answer-display{
     margin-top:8px;
-    height:38px;
-    border-radius:8px;
-    background:rgba(245,243,238,.06);
+    height:42px;
+    border-radius:9px;
+    background:var(--card-bg);
     border:1px solid var(--panel-line);
     display:flex;
     align-items:center;
     justify-content:center;
     font-family:'Oswald',sans-serif;
     font-size:1.2rem;
+    font-weight:600;
     letter-spacing:.05em;
     color:var(--ink);
   }
-  .answer-display.placeholder{color:var(--ink-dim);}
+  .answer-display.placeholder{color:var(--ink-dim); font-weight:400;}
 
   .keypad{
     display:grid;
@@ -295,32 +296,31 @@
     gap:8px;
   }
   .key{
-    padding:12px 0;
-    border-radius:9px;
-    border:1px solid var(--panel-line);
-    background:rgba(245,243,238,.04);
+    padding:14px 0;
+    border-radius:11px;
+    border:none;
+    background:var(--field-bg);
     color:var(--ink);
     font-family:'Oswald',sans-serif;
-    font-size:1.05rem;
-    font-weight:500;
+    font-size:1.15rem;
+    font-weight:600;
     cursor:pointer;
     -webkit-tap-highlight-color:transparent;
-    touch-action:manipulation;
-    transition:background .12s, transform .08s;
+    touch-action:none;
+    transition:transform .08s;
   }
-  .key:hover{background:rgba(245,243,238,.1);}
-  .key:active{transform:scale(.94);}
-  .key.clear{color:var(--ink-dim);}
-  .panel-a .key.submit{background:var(--team-a);color:#241900;border-color:var(--team-a);}
-  .panel-b .key.submit{background:var(--team-b);color:#2a0506;border-color:var(--team-b);}
-  .panel-a .key.submit:hover{background:var(--team-a-dark);color:var(--ink);}
-  .panel-b .key.submit:hover{background:var(--team-b-dark);color:var(--ink);}
+  .key.pressed{transform:scale(.92);}
+  .panel-a .key.submit.pressed{background:var(--team-a-dark); color:#fff;}
+  .panel-b .key.submit.pressed{background:var(--team-b-dark); color:#fff;}
+  .key.clear{color:var(--team-b); background:rgba(var(--ink-rgb),.05);}
+  .panel-a .key.submit{background:var(--team-a);color:#241900;}
+  .panel-b .key.submit{background:var(--team-b);color:#fff;}
 
   /* ---------- Rope stage ---------- */
   .stage{
-    background:var(--panel);
-    border:1px solid var(--panel-line);
-    border-radius:var(--radius);
+    background:var(--card-bg);
+    border-radius:18px;
+    box-shadow:0 2px 10px rgba(0,0,0,.12);
     position:relative;
     display:flex;
     flex-direction:column;
@@ -438,8 +438,7 @@
   /* ---------- Overlays ---------- */
   .overlay{
     position:fixed; inset:0;
-    background:rgba(6,10,20,.82);
-    backdrop-filter:blur(3px);
+    background:rgba(6,10,20,.75);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -494,10 +493,10 @@
     font-size:1.02rem;
     cursor:pointer;
     margin-top:4px;
-    touch-action:manipulation;
+    touch-action:none;
     transition:transform .1s, opacity .15s;
   }
-  .btn:active{transform:scale(.97);}
+  .btn.pressed{transform:scale(.97); opacity:.9;}
   .btn-primary{background:var(--btn-primary-bg); color:var(--btn-primary-ink);}
   .btn-ghost{
     background:transparent;
@@ -561,14 +560,16 @@
       <!-- Team A -->
       <div class="team-panel panel-a" id="panelA">
         <div class="team-head">
-          <div class="team-name"><span class="swatch"></span>Team Gold</div>
-          <div class="score"><span id="scoreA">0</span><span class="score-of">/<span id="winScoreLabelA">10</span></span></div>
+          <div class="team-name">Team Gold</div>
+          <div class="score-badge"><span id="scoreA">0</span><span class="score-of">/<span id="winScoreLabelA">10</span></span></div>
         </div>
-        <div class="question-box">
-          <div class="question-text" id="questionA">–</div>
-          <div class="answer-display placeholder" id="inputA">answer</div>
+        <div class="team-body">
+          <div class="question-box">
+            <div class="question-text" id="questionA">–</div>
+            <div class="answer-display placeholder" id="inputA">answer</div>
+          </div>
+          <div class="keypad" id="keypadA"></div>
         </div>
-        <div class="keypad" id="keypadA"></div>
       </div>
 
       <!-- Rope stage -->
@@ -593,14 +594,16 @@
       <!-- Team B -->
       <div class="team-panel panel-b" id="panelB">
         <div class="team-head">
-          <div class="team-name"><span class="swatch"></span>Team Crimson</div>
-          <div class="score"><span id="scoreB">0</span><span class="score-of">/<span id="winScoreLabelB">10</span></span></div>
+          <div class="team-name">Team Crimson</div>
+          <div class="score-badge"><span id="scoreB">0</span><span class="score-of">/<span id="winScoreLabelB">10</span></span></div>
         </div>
-        <div class="question-box">
-          <div class="question-text" id="questionB">–</div>
-          <div class="answer-display placeholder" id="inputB">answer</div>
+        <div class="team-body">
+          <div class="question-box">
+            <div class="question-text" id="questionB">–</div>
+            <div class="answer-display placeholder" id="inputB">answer</div>
+          </div>
+          <div class="keypad" id="keypadB"></div>
         </div>
-        <div class="keypad" id="keypadB"></div>
       </div>
     </div>
   </div>
@@ -759,6 +762,32 @@
     if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
   }
 
+  // ---------- Reliable press handling (fixes ghost double-taps + gives instant visual feedback) ----------
+  const PRESS_DEBOUNCE_MS = 120;
+  const lastPressTime = new WeakMap();
+
+  function bindPress(el, onActivate){
+    el.addEventListener('pointerdown', function(e){
+      if(e.cancelable) e.preventDefault();
+      const now = Date.now();
+      const last = lastPressTime.get(el) || 0;
+      el.classList.add('pressed');
+      if(now - last < PRESS_DEBOUNCE_MS) return; // ignore hardware bounce / duplicate touch
+      lastPressTime.set(el, now);
+      onActivate();
+    });
+    ['pointerup','pointerleave','pointercancel'].forEach(function(evt){
+      el.addEventListener(evt, function(){ el.classList.remove('pressed'); });
+    });
+    // Keyboard accessibility (Enter/Space) — pointer events don't cover this.
+    el.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        onActivate();
+      }
+    });
+  }
+
   function buildKeypad(container, team){
     container.innerHTML = '';
     const layout = ['1','2','3','4','5','6','7','8','9','C','0','✓'];
@@ -767,7 +796,7 @@
       btn.className = 'key' + (label === 'C' ? ' clear' : '') + (label === '✓' ? ' submit' : '');
       btn.textContent = label;
       btn.type = 'button';
-      btn.addEventListener('click', function(){ handleKey(team, label); });
+      bindPress(btn, function(){ handleKey(team, label); });
       container.appendChild(btn);
     });
   }
@@ -931,23 +960,23 @@
   buildKeypad(el.keypadA, 'A');
   buildKeypad(el.keypadB, 'B');
 
-  el.startBtn.addEventListener('click', function(){
+  bindPress(el.startBtn, function(){
     applySettingsFromForm();
     newMatch();
   });
-  el.rematchBtn.addEventListener('click', function(){
+  bindPress(el.rematchBtn, function(){
     newMatch();
   });
-  el.newSettingsBtn.addEventListener('click', function(){
+  bindPress(el.newSettingsBtn, function(){
     el.winOverlay.classList.add('hidden');
     el.startOverlay.classList.remove('hidden');
   });
-  el.settingsBtn.addEventListener('click', function(){
+  bindPress(el.settingsBtn, function(){
     state.active = false;
     stopTimer();
     el.startOverlay.classList.remove('hidden');
   });
-  el.restartBtn.addEventListener('click', function(){
+  bindPress(el.restartBtn, function(){
     newMatch();
   });
 
@@ -965,16 +994,11 @@
   (function initTheme(){
     let saved = null;
     try{ saved = localStorage.getItem('tugOfWarMathTheme'); }catch(e){}
-    if(saved === 'light' || saved === 'dark'){
-      applyTheme(saved);
-    } else {
-      const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
-      applyTheme(prefersLight ? 'light' : 'dark');
-    }
+    applyTheme(saved === 'dark' ? 'dark' : 'light');
   })();
 
   if(themeToggleBtn){
-    themeToggleBtn.addEventListener('click', function(){
+    bindPress(themeToggleBtn, function(){
       const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
       applyTheme(current === 'light' ? 'dark' : 'light');
     });
