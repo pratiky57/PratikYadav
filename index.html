@@ -48,7 +48,12 @@
     "jobTitle": "Student & Web Developer",
     "nationality": "Nepali",
     "description": "Science student and developer exploring web development, physics, and cognitive science.",
-    "knowsAbout": ["Web Development", "Physics", "Computer Science", "Metacognition", "Optics"]
+    "knowsAbout": ["Web Development", "Physics", "Computer Science", "Metacognition", "Optics"],
+    "sameAs": [
+      "https://www.facebook.com/pratikyad",
+      "https://www.instagram.com/pratiky_",
+      "https://x.com/pratik_y"
+    ]
   }
   </script>
 
@@ -63,6 +68,7 @@
       --bg-mid: #141c30;
       --accent-gold: #f4c430;
       --accent-teal: #4ee0d1;
+      --accent-red: #ef6461;
       --text-main: #f0f4f8;
       --text-muted: #94a3b8;
       --font-display: 'Fraunces', serif;
@@ -178,6 +184,33 @@
 
     .notes-btn .spark {
       font-size: 0.9rem;
+    }
+
+    .tug-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--accent-red);
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2.2rem;
+      border: 1px solid rgba(239, 100, 97, 0.35);
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .tug-btn:hover {
+      background: rgba(239, 100, 97, 0.08);
+      border-color: rgba(239, 100, 97, 0.7);
+      transform: translateY(-2px);
+    }
+
+    .tug-btn:active {
+      transform: translateY(1px) scale(0.98);
     }
 
     .game-modal {
@@ -301,6 +334,7 @@
     <h1 class="name">Pratik Yadav</h1>
     <div class="btn-group">
       <button class="play-btn" id="openGameBtn" aria-label="Play Star Catcher Mini-Game">Play Star Catcher</button>
+      <a href="https://yadavpratik.com.np/tug-of-war-math.html" class="tug-btn" aria-label="Play Tug of War"><span class="spark">⚔️</span> Play Tug of War</a>
       <a href="notes.html" class="notes-btn" aria-label="Stuff I Learnt notes page"><span class="spark">✦</span> Stuff I Learnt</a>
     </div>
   </main>
