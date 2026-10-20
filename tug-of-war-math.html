@@ -196,8 +196,7 @@
     .question-text{font-size:1.5rem;}
     .score-badge{font-size:1rem;}
     .key{padding:13px 0;font-size:1rem;}
-    .stage{min-height:170px;padding:14px 6px;}
-    .track{margin:44px 0 34px;}
+    .stage{min-height:220px;padding:14px 6px;}
     .card{padding:22px 18px;}
   }
 
@@ -316,7 +315,7 @@
   .panel-a .key.submit{background:var(--team-a);color:#241900;}
   .panel-b .key.submit{background:var(--team-b);color:#fff;}
 
-  /* ---------- Rope stage ---------- */
+  /* ---------- Dynamic Animated SVG Rope Stage ---------- */
   .stage{
     background:var(--card-bg);
     border-radius:18px;
@@ -324,18 +323,19 @@
     position:relative;
     display:flex;
     flex-direction:column;
-    justify-content:center;
+    justify-content:space-between;
     align-items:center;
-    padding:20px 10px;
-    min-height:220px;
+    padding:14px 10px;
+    min-height:240px;
     overflow:hidden;
   }
   .center-line{
     position:absolute;
-    top:14px; bottom:14px;
+    top:34px; bottom:34px;
     left:50%;
     width:1px;
-    background:repeating-linear-gradient(to bottom, var(--panel-line) 0 6px, transparent 6px 12px);
+    border-left: 2px dashed var(--panel-line);
+    z-index:1;
   }
   .goal-flag{
     position:absolute;
@@ -348,59 +348,23 @@
   .goal-flag.left{left:8%;}
   .goal-flag.right{right:8%; text-align:right;}
 
-  .track{
-    position:relative;
-    width:100%;
-    height:6px;
-    margin:56px 0 44px;
-    border-radius:4px;
-    background:linear-gradient(90deg, var(--team-a-dark), var(--rope-dark) 45%, var(--rope-dark) 55%, var(--team-b-dark));
+  .tug-svg-container {
+    width: 100%;
+    height: 180px;
+    position: relative;
+    z-index: 2;
   }
-  .knot{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:26px;height:26px;
-    border-radius:50%;
-    background:radial-gradient(circle at 35% 30%, #fff6e0, var(--rope) 55%, var(--rope-dark));
-    border:2px solid rgba(0,0,0,.25);
-    transform:translate(-50%,-50%);
-    transition:left .5s cubic-bezier(.34,1.56,.64,1);
-    box-shadow:0 2px 8px rgba(0,0,0,.4);
-  }
-
-  .figures{
-    position:absolute;
-    top:50%;
-    display:flex;
-    gap:2px;
-    transform:translateY(-50%);
-    transition:left .6s cubic-bezier(.34,1.56,.64,1), right .6s cubic-bezier(.34,1.56,.64,1);
-  }
-  .figures.team-a{left:6%;}
-  .figures.team-b{right:6%; flex-direction:row-reverse;}
-  .fig{
-    display:flex;
-    align-items:flex-end;
-    transition:transform .18s ease;
-  }
-  .fig svg{ display:block; width:34px; height:48px; overflow:visible; }
-  .figures.team-a .fig svg{ color:var(--team-a); }
-  .figures.team-b .fig svg{ color:var(--team-b); transform:scaleX(-1); }
-  .fig .skin{ fill:#f2b783; }
-  .fig .shirt{ fill:currentColor; }
-  .fig .pants{ fill:#2b3446; }
-  .fig .band{ fill:#f5f3ee; }
-  .figures.pull .fig{transform:translateX(var(--pull-dir,0)) rotate(var(--pull-rot,0deg));}
-  @media (max-width:480px){
-    .fig svg{ width:26px; height:36px; }
+  .tug-svg-container svg {
+    width: 100%;
+    height: 100%;
   }
 
   .stage-caption{
     color:var(--ink-dim);
     font-size:.78rem;
     text-align:center;
-    max-width:260px;
+    max-width:280px;
+    z-index:2;
   }
 
   /* ---------- Footer / settings row ---------- */
@@ -526,18 +490,6 @@
 </head>
 <body>
 
-  <!-- Reusable cartoon figure (mirrored via CSS for the opposing team) -->
-  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-    <symbol id="figMan" viewBox="0 0 40 60">
-      <path class="pants" d="M14 39 L7 58 L14 58 L19 41 Z"/>
-      <path class="pants" d="M22 39 L29 57 L35 57 L26 39 Z"/>
-      <path class="shirt" d="M11 19 Q8 31 15 42 L28 39 Q26 25 23 13 Z"/>
-      <path class="shirt" d="M23 17 Q34 12 38 19 L36 23 Q29 19 21 23 Z"/>
-      <circle class="skin" cx="19" cy="10" r="8"/>
-      <path class="band" d="M11 8 Q19 2 27 8 L27 11 Q19 6.5 11 11 Z"/>
-    </symbol>
-  </svg>
-
   <h1 class="visually-hidden">Tug of War: Math – Free Two-Team Multiplication Game</h1>
 
   <div class="topbar">
@@ -560,7 +512,7 @@
       <!-- Team A -->
       <div class="team-panel panel-a" id="panelA">
         <div class="team-head">
-          <div class="team-name">Team Gold</div>
+          <div class="team-name" id="nameA">Team Gold</div>
           <div class="score-badge"><span id="scoreA">0</span><span class="score-of">/<span id="winScoreLabelA">10</span></span></div>
         </div>
         <div class="team-body">
@@ -577,24 +529,74 @@
         <div class="goal-flag left">GOAL</div>
         <div class="goal-flag right">GOAL</div>
         <div class="center-line"></div>
-        <div class="track">
-          <div class="knot" id="knot"></div>
+        
+        <div class="tug-svg-container">
+          <svg id="tugSvg" viewBox="0 0 500 160" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="ropeGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#ffb703"/>
+                <stop offset="50%" stop-color="#c9a66b"/>
+                <stop offset="100%" stop-color="#e5383b"/>
+              </linearGradient>
+              <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="3" stdDeviation="2" flood-opacity="0.3"/>
+              </filter>
+            </defs>
+
+            <!-- Dynamic Rope Path -->
+            <path id="ropePath" d="M 50 90 Q 250 90 450 90" stroke="url(#ropeGrad)" stroke-width="7" fill="none" stroke-linecap="round" filter="url(#shadow)"/>
+            
+            <!-- Center Flag / Marker on Rope -->
+            <g id="ropeFlag" transform="translate(250, 90)">
+              <circle cx="0" cy="0" r="7" fill="#f1c40f" stroke="#b7950b" stroke-width="2" />
+              <polygon points="0,-2 0,-22 14,-12" fill="#e74c3c" />
+            </g>
+
+            <!-- Team A Pullers (Gold) -->
+            <g id="teamAPullers" transform="translate(0, 0)">
+              <!-- Guy 1 -->
+              <g class="puller-a1" transform="translate(100, 90)">
+                <circle cx="-12" cy="-42" r="8" fill="#f2b783"/>
+                <path d="M-12 -34 L-16 -12 L-22 18 M-16 -12 L-8 18" stroke="#ffb703" stroke-width="7" stroke-linecap="round"/>
+                <path d="M-22 18 L-28 32 M-8 18 L-12 32" stroke="#2b3446" stroke-width="6" stroke-linecap="round"/>
+                <path d="M-14 -26 L6 0" stroke="#f2b783" stroke-width="4" stroke-linecap="round"/>
+              </g>
+              <!-- Guy 2 -->
+              <g class="puller-a2" transform="translate(145, 90)">
+                <circle cx="-12" cy="-42" r="8" fill="#f2b783"/>
+                <path d="M-12 -34 L-16 -12 L-22 18 M-16 -12 L-8 18" stroke="#ffb703" stroke-width="7" stroke-linecap="round"/>
+                <path d="M-22 18 L-28 32 M-8 18 L-12 32" stroke="#2b3446" stroke-width="6" stroke-linecap="round"/>
+                <path d="M-14 -26 L6 0" stroke="#f2b783" stroke-width="4" stroke-linecap="round"/>
+              </g>
+            </g>
+
+            <!-- Team B Pullers (Crimson) -->
+            <g id="teamBPullers" transform="translate(0, 0)">
+              <!-- Guy 1 -->
+              <g class="puller-b1" transform="translate(355, 90)">
+                <circle cx="12" cy="-42" r="8" fill="#f2b783"/>
+                <path d="M12 -34 L16 -12 L8 18 M16 -12 L22 18" stroke="#e5383b" stroke-width="7" stroke-linecap="round"/>
+                <path d="M8 18 L12 32 M22 18 L28 32" stroke="#2b3446" stroke-width="6" stroke-linecap="round"/>
+                <path d="M14 -26 L-6 0" stroke="#f2b783" stroke-width="4" stroke-linecap="round"/>
+              </g>
+              <!-- Guy 2 -->
+              <g class="puller-b2" transform="translate(400, 90)">
+                <circle cx="12" cy="-42" r="8" fill="#f2b783"/>
+                <path d="M12 -34 L16 -12 L8 18 M16 -12 L22 18" stroke="#e5383b" stroke-width="7" stroke-linecap="round"/>
+                <path d="M8 18 L12 32 M22 18 L28 32" stroke="#2b3446" stroke-width="6" stroke-linecap="round"/>
+                <path d="M14 -26 L-6 0" stroke="#f2b783" stroke-width="4" stroke-linecap="round"/>
+              </g>
+            </g>
+          </svg>
         </div>
-        <div class="figures team-a" id="figuresA" aria-hidden="true">
-          <div class="fig"><svg><use href="#figMan"></use></svg></div>
-          <div class="fig"><svg><use href="#figMan"></use></svg></div>
-        </div>
-        <div class="figures team-b" id="figuresB" aria-hidden="true">
-          <div class="fig"><svg><use href="#figMan"></use></svg></div>
-          <div class="fig"><svg><use href="#figMan"></use></svg></div>
-        </div>
+
         <div class="stage-caption">Every correct answer pulls the rope toward your side.</div>
       </div>
 
       <!-- Team B -->
       <div class="team-panel panel-b" id="panelB">
         <div class="team-head">
-          <div class="team-name">Team Crimson</div>
+          <div class="team-name" id="nameB">Team Crimson</div>
           <div class="score-badge"><span id="scoreB">0</span><span class="score-of">/<span id="winScoreLabelB">10</span></span></div>
         </div>
         <div class="team-body">
@@ -612,7 +614,7 @@
 
   <section class="seo-info">
     <h2>How to Play Tug of War: Math</h2>
-    <p>Tug of War: Math is a free two-team multiplication and times-tables game you can play right in your browser — no download needed. Split your class or family into Team Gold and Team Crimson. Each team gets its own question and number pad. Every correct answer pulls the rope toward that team's side; the first team to reach the target score wins the pull.</p>
+    <p>Tug of War: Math is a free two-team multiplication and times-tables game you can play right in your browser — no download needed. Split your class or family into Team Gold and Team Crimson, or practice against the computer! Each team gets its own question and number pad. Every correct answer pulls the rope toward that team's side; the first team to reach the target score wins the pull.</p>
     <h2>Why it's great for practicing math facts</h2>
     <p>Fast, low-pressure repetition is one of the best ways to build fluency with multiplication tables and mental math. The head-to-head format keeps students engaged, works on any phone, tablet, or classroom display, and lets you adjust the number range and win score to match the level of your students.</p>
   </section>
@@ -624,6 +626,13 @@
     <div class="card">
       <h2>Tug of War: Math</h2>
       <p>Two teams, one rope. Answer fastest and most accurately to pull the rope to your side.</p>
+      <div class="field">
+        <label for="modeSelect">Game Mode</label>
+        <select id="modeSelect">
+          <option value="human">Human vs Human (2 Players)</option>
+          <option value="ai" selected>Human vs Computer (1 Player)</option>
+        </select>
+      </div>
       <div class="field">
         <label for="opSelect">Question type</label>
         <select id="opSelect">
@@ -667,6 +676,7 @@
 
   // ---------- State ----------
   const state = {
+    mode: 'ai', // 'human' or 'ai'
     winScore: 10,
     range: 10,
     opMode: 'mul',
@@ -678,7 +688,10 @@
     qB: null,
     active: false,
     seconds: 0,
-    timerId: null
+    timerId: null,
+    aiTimer: null,
+    ropeOffset: 0, // current offset for animation lerp (-100 to 100)
+    targetRopeOffset: 0
   };
 
   // ---------- Elements ----------
@@ -690,12 +703,15 @@
     newSettingsBtn: document.getElementById('newSettingsBtn'),
     settingsBtn: document.getElementById('settingsBtn'),
     restartBtn: document.getElementById('restartBtn'),
+    modeSelect: document.getElementById('modeSelect'),
     opSelect: document.getElementById('opSelect'),
     rangeSelect: document.getElementById('rangeSelect'),
     winScoreInput: document.getElementById('winScoreInput'),
     timerDisplay: document.getElementById('timerDisplay'),
     scoreA: document.getElementById('scoreA'),
     scoreB: document.getElementById('scoreB'),
+    nameA: document.getElementById('nameA'),
+    nameB: document.getElementById('nameB'),
     winScoreLabel: document.getElementById('winScoreLabel'),
     winScoreLabelA: document.getElementById('winScoreLabelA'),
     winScoreLabelB: document.getElementById('winScoreLabelB'),
@@ -707,9 +723,10 @@
     panelB: document.getElementById('panelB'),
     keypadA: document.getElementById('keypadA'),
     keypadB: document.getElementById('keypadB'),
-    knot: document.getElementById('knot'),
-    figuresA: document.getElementById('figuresA'),
-    figuresB: document.getElementById('figuresB'),
+    ropePath: document.getElementById('ropePath'),
+    ropeFlag: document.getElementById('ropeFlag'),
+    teamAPullers: document.getElementById('teamAPullers'),
+    teamBPullers: document.getElementById('teamBPullers'),
     winTitle: document.getElementById('winTitle'),
     winSub: document.getElementById('winSub'),
     winSwatch: document.getElementById('winSwatch'),
@@ -760,9 +777,10 @@
   }
   function stopTimer(){
     if(state.timerId){ clearInterval(state.timerId); state.timerId = null; }
+    if(state.aiTimer){ clearTimeout(state.aiTimer); state.aiTimer = null; }
   }
 
-  // ---------- Reliable press handling (fixes ghost double-taps + gives instant visual feedback) ----------
+  // ---------- Press Handling ----------
   const PRESS_DEBOUNCE_MS = 120;
   const lastPressTime = new WeakMap();
 
@@ -772,14 +790,13 @@
       const now = Date.now();
       const last = lastPressTime.get(el) || 0;
       el.classList.add('pressed');
-      if(now - last < PRESS_DEBOUNCE_MS) return; // ignore hardware bounce / duplicate touch
+      if(now - last < PRESS_DEBOUNCE_MS) return;
       lastPressTime.set(el, now);
       onActivate();
     });
     ['pointerup','pointerleave','pointercancel'].forEach(function(evt){
       el.addEventListener(evt, function(){ el.classList.remove('pressed'); });
     });
-    // Keyboard accessibility (Enter/Space) — pointer events don't cover this.
     el.addEventListener('keydown', function(e){
       if(e.key === 'Enter' || e.key === ' '){
         e.preventDefault();
@@ -803,6 +820,7 @@
 
   function handleKey(team, label){
     if(!state.active) return;
+    if(state.mode === 'ai' && team === 'B') return; // AI controls team B
     const key = team === 'A' ? 'inputA' : 'inputB';
     if(label === 'C'){
       state[key] = '';
@@ -829,25 +847,57 @@
 
   function renderQuestion(team){
     const q = generateQuestion();
-    if(team === 'A'){ state.qA = q; el.questionA.textContent = q.text; state.inputA = ''; renderInput('A'); }
-    else { state.qB = q; el.questionB.textContent = q.text; state.inputB = ''; renderInput('B'); }
+    if(team === 'A'){ 
+      state.qA = q; 
+      el.questionA.textContent = q.text; 
+      state.inputA = ''; 
+      renderInput('A'); 
+    } else { 
+      state.qB = q; 
+      el.questionB.textContent = q.text; 
+      state.inputB = ''; 
+      renderInput('B'); 
+      if(state.mode === 'ai' && state.active){
+        scheduleAiAnswer();
+      }
+    }
+  }
+
+  // ---------- Computer AI Logic ----------
+  function scheduleAiAnswer(){
+    if(state.aiTimer) clearTimeout(state.aiTimer);
+    
+    // Give human realistic time: AI takes between 3.5 to 6.5 seconds per question
+    const baseDelay = 3500;
+    const randomVariation = Math.random() * 3000;
+    const thinkingTime = baseDelay + randomVariation;
+
+    state.aiTimer = setTimeout(function(){
+      if(!state.active || state.mode !== 'ai') return;
+      
+      // 85% accuracy so AI occasionally misses to give human a fair advantage
+      const isCorrect = Math.random() < 0.85;
+      
+      if(isCorrect){
+        state.inputB = state.qB.answer.toString();
+      } else {
+        state.inputB = (state.qB.answer + randInt(1, 5)).toString();
+      }
+      renderInput('B');
+      
+      // Brief pause after typing before pressing submit
+      setTimeout(function(){
+        if(!state.active) return;
+        submitAnswer('B');
+      }, 400);
+
+    }, thinkingTime);
   }
 
   function flash(panel, good){
     panel.classList.remove('correct-flash','wrong-flash');
     void panel.offsetWidth;
     panel.classList.add(good ? 'correct-flash' : 'wrong-flash');
-  }
-
-  function pullFigures(team){
-    const grp = team === 'A' ? el.figuresA : el.figuresB;
-    const dir = team === 'A' ? '6px' : '-6px';
-    grp.classList.add('pull');
-    grp.style.setProperty('--pull-dir', dir);
-    setTimeout(function(){
-      grp.classList.remove('pull');
-      grp.style.setProperty('--pull-dir', '0px');
-    }, 220);
   }
 
   function submitAnswer(team){
@@ -860,43 +910,70 @@
       if(team === 'A'){ state.scoreA++; el.scoreA.textContent = state.scoreA; }
       else { state.scoreB++; el.scoreB.textContent = state.scoreB; }
       flash(panel, true);
-      pullFigures(team);
-      updateRope();
+      triggerPullAnimation(team);
+      updateRopePosition();
       if(checkWin()) return;
       renderQuestion(team);
     } else {
       flash(panel, false);
       if(team === 'A'){ state.inputA = ''; renderInput('A'); }
-      else { state.inputB = ''; renderInput('B'); }
+      else { 
+        state.inputB = ''; 
+        renderInput('B'); 
+        if(state.mode === 'ai') scheduleAiAnswer(); // retry on AI mistake
+      }
     }
   }
 
-  const FIG_BASE = 6;      // resting distance (%) from the stage edge
-  const FIG_MAX_MOVE = 46; // how far (%) the losing team can be dragged toward the winner
+  // ---------- SVG Dynamic Animation Logic ----------
+  let pullPulse = 0;
+  let pullingTeam = null;
 
-  function updateRope(){
+  function triggerPullAnimation(team){
+    pullingTeam = team;
+    pullPulse = 1.0;
+  }
+
+  function updateRopePosition(){
     const diff = Math.max(-state.winScore, Math.min(state.winScore, state.scoreA - state.scoreB));
-    // Positive diff (Team A ahead) pulls the knot toward Team A's own side (left).
-    const pct = 50 - (diff / state.winScore) * 40; // 10%..90%
-    el.knot.style.left = pct + '%';
-    updateFigurePositions(diff / state.winScore); // -1 (B way ahead) .. 1 (A way ahead)
+    state.targetRopeOffset = (diff / state.winScore) * 140; // max +/- 140px
   }
 
-  function updateFigurePositions(lead){
-    const move = Math.abs(lead) * FIG_MAX_MOVE;
-    if(lead > 0){
-      // Team A is winning: Team A holds its ground, Team B is dragged toward Team A.
-      el.figuresA.style.left = FIG_BASE + '%';
-      el.figuresB.style.right = (FIG_BASE + move) + '%';
-    } else if(lead < 0){
-      // Team B is winning: Team B holds its ground, Team A is dragged toward Team B.
-      el.figuresB.style.right = FIG_BASE + '%';
-      el.figuresA.style.left = (FIG_BASE + move) + '%';
-    } else {
-      el.figuresA.style.left = FIG_BASE + '%';
-      el.figuresB.style.right = FIG_BASE + '%';
-    }
+  function animateLoop(){
+    // Smooth lerp movement toward target
+    state.ropeOffset += (state.targetRopeOffset - state.ropeOffset) * 0.12;
+    
+    if(pullPulse > 0) pullPulse -= 0.05;
+    else pullPulse = 0;
+
+    const shift = state.ropeOffset; // -140 (Left A ahead) to +140 (Right B ahead)
+    const centerX = 250 - shift;
+    const flexY = 90 + Math.sin(Date.now() * 0.005) * 2 + (pullPulse * (pullingTeam === 'A' ? -4 : 4));
+
+    // Curved Rope Path
+    const pathD = `M ${50 - shift} 90 Q ${centerX} ${flexY} ${450 - shift} 90`;
+    el.ropePath.setAttribute('d', pathD);
+
+    // Center Flag Location
+    el.ropeFlag.setAttribute('transform', `translate(${centerX}, ${flexY})`);
+
+    // Dynamic Puller Positions & Lean Angles
+    const leanA = -12 - (shift < 0 ? Math.abs(shift)*0.1 : 0) - (pullingTeam === 'A' ? pullPulse * 15 : 0);
+    const leanB = 12 + (shift > 0 ? shift*0.1 : 0) + (pullingTeam === 'B' ? pullPulse * 15 : 0);
+
+    el.teamAPullers.setAttribute('transform', `translate(${-shift}, 0)`);
+    el.teamBPullers.setAttribute('transform', `translate(${-shift}, 0)`);
+
+    // Rotate pullers based on struggle
+    const pullersA = el.teamAPullers.querySelectorAll('.puller-a1, .puller-a2');
+    pullersA.forEach(p => p.setAttribute('transform', `translate(${p.classList.contains('puller-a1') ? 100 : 145}, 90) rotate(${leanA})`));
+
+    const pullersB = el.teamBPullers.querySelectorAll('.puller-b1, .puller-b2');
+    pullersB.forEach(p => p.setAttribute('transform', `translate(${p.classList.contains('puller-b1') ? 355 : 400}, 90) rotate(${leanB})`));
+
+    requestAnimationFrame(animateLoop);
   }
+  requestAnimationFrame(animateLoop);
 
   function checkWin(){
     if(state.scoreA >= state.winScore){ endGame('A'); return true; }
@@ -907,9 +984,12 @@
   function endGame(winner){
     state.active = false;
     stopTimer();
-    const name = winner === 'A' ? 'Team Gold' : 'Team Crimson';
+    let name = winner === 'A' ? 'Team Gold' : 'Team Crimson';
+    if(state.mode === 'ai'){
+      name = winner === 'A' ? 'You Win!' : 'Computer Wins!';
+    }
     const color = winner === 'A' ? getComputedStyle(document.documentElement).getPropertyValue('--team-a') : getComputedStyle(document.documentElement).getPropertyValue('--team-b');
-    el.winTitle.textContent = name + ' wins!';
+    el.winTitle.textContent = name;
     el.winSwatch.style.background = color;
     el.winSub.textContent = state.scoreA + ' – ' + state.scoreB + ' points · ' + el.timerDisplay.textContent + ' on the clock';
     el.winOverlay.classList.remove('hidden');
@@ -932,6 +1012,7 @@
   }
 
   function applySettingsFromForm(){
+    state.mode = el.modeSelect.value;
     state.opMode = el.opSelect.value;
     state.range = parseInt(el.rangeSelect.value, 10);
     let ws = parseInt(el.winScoreInput.value, 10);
@@ -941,13 +1022,20 @@
     el.winScoreLabel.textContent = ws;
     el.winScoreLabelA.textContent = ws;
     el.winScoreLabelB.textContent = ws;
+
+    if(state.mode === 'ai'){
+      el.nameA.textContent = "You";
+      el.nameB.textContent = "Computer";
+    } else {
+      el.nameA.textContent = "Team Gold";
+      el.nameB.textContent = "Team Crimson";
+    }
   }
 
   function newMatch(){
     state.scoreA = 0; state.scoreB = 0;
     el.scoreA.textContent = '0'; el.scoreB.textContent = '0';
-    el.knot.style.left = '50%';
-    updateFigurePositions(0);
+    state.targetRopeOffset = 0;
     state.active = true;
     renderQuestion('A');
     renderQuestion('B');
@@ -980,7 +1068,7 @@
     newMatch();
   });
 
-  // ---------- Theme toggle (persisted per browser) ----------
+  // ---------- Theme toggle ----------
   const themeToggleBtn = document.getElementById('themeToggle');
   const copyYearEl = document.getElementById('copyYear');
   if(copyYearEl){ copyYearEl.textContent = new Date().getFullYear(); }
