@@ -54,14 +54,13 @@
     --ink:#f5f3ee;
     --line:rgba(var(--ink-rgb),.07);
     --ink-dim:rgba(var(--ink-rgb),.58);
-    --team-a:#ffb703;
-    --team-a-dark:#c98a00;
-    --team-a-glow:rgba(255,183,3,.35);
-    --team-b:#e5383b;
-    --team-b-dark:#a3181b;
-    --team-b-glow:rgba(229,56,59,.35);
-    --rope:#c9a66b;
-    --rope-dark:#8b5e34;
+    --team-a:#3b82f6;
+    --team-a-dark:#1d4ed8;
+    --team-a-glow:rgba(59,130,246,.35);
+    --team-b:#ef4444;
+    --team-b-dark:#b91c1c;
+    --team-b-glow:rgba(239,68,68,.35);
+    --rope:#4a3525;
     --panel:rgba(var(--ink-rgb),.045);
     --panel-line:rgba(var(--ink-rgb),.14);
     --good:#5fd068;
@@ -72,20 +71,18 @@
     --btn-primary-ink:#12203a;
   }
   html[data-theme="light"]{
-    --bg:#f4f2ec;
+    --bg:#f8fafc;
     --bg-2:#ffffff;
-    --ink-rgb:21,38,64;
-    --ink:#152640;
+    --ink-rgb:15,23,42;
+    --ink:#0f172a;
     --line:rgba(var(--ink-rgb),.08);
     --ink-dim:rgba(var(--ink-rgb),.6);
-    --team-a-dark:#8a5c00;
-    --team-b-dark:#8a1518;
     --panel:rgba(var(--ink-rgb),.04);
     --panel-line:rgba(var(--ink-rgb),.13);
     --card-bg:#ffffff;
     --field-bg:rgba(var(--ink-rgb),.05);
-    --btn-primary-bg:#152640;
-    --btn-primary-ink:#f5f3ee;
+    --btn-primary-bg:#0f172a;
+    --btn-primary-ink:#f8fafc;
   }
   *{box-sizing:border-box;}
   .visually-hidden{
@@ -180,7 +177,7 @@
 
   .arena{
     display:grid;
-    grid-template-columns:1fr 1.15fr 1fr;
+    grid-template-columns:1fr 1.35fr 1fr;
     gap:14px;
     flex:1;
   }
@@ -196,7 +193,7 @@
     .question-text{font-size:1.5rem;}
     .score-badge{font-size:1rem;}
     .key{padding:13px 0;font-size:1rem;}
-    .stage{min-height:220px;padding:14px 6px;}
+    .stage{min-height:210px;padding:10px 4px;}
     .card{padding:22px 18px;}
   }
 
@@ -232,10 +229,10 @@
     align-items:center;
     justify-content:space-between;
     padding:14px 18px;
-    color:#241900;
+    color:#fff;
   }
   .panel-a .team-head{background:var(--team-a);}
-  .panel-b .team-head{background:var(--team-b); color:#fff;}
+  .panel-b .team-head{background:var(--team-b);}
   .team-name{
     font-family:'Oswald',sans-serif;
     font-weight:700;
@@ -243,7 +240,7 @@
     letter-spacing:.02em;
   }
   .score-badge{
-    background:rgba(255,255,255,.32);
+    background:rgba(255,255,255,.28);
     border-radius:20px;
     padding:4px 12px;
     font-family:'Oswald',sans-serif;
@@ -312,45 +309,55 @@
   .panel-a .key.submit.pressed{background:var(--team-a-dark); color:#fff;}
   .panel-b .key.submit.pressed{background:var(--team-b-dark); color:#fff;}
   .key.clear{color:var(--team-b); background:rgba(var(--ink-rgb),.05);}
-  .panel-a .key.submit{background:var(--team-a);color:#241900;}
+  .panel-a .key.submit{background:var(--team-a);color:#fff;}
   .panel-b .key.submit{background:var(--team-b);color:#fff;}
 
-  /* ---------- Dynamic Animated SVG Rope Stage ---------- */
+  /* ---------- Vector Artwork Stage ---------- */
   .stage{
-    background:var(--card-bg);
+    background:#fafbfc;
+    border:1px solid var(--panel-line);
     border-radius:18px;
-    box-shadow:0 2px 10px rgba(0,0,0,.12);
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
     position:relative;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
     align-items:center;
-    padding:14px 10px;
-    min-height:240px;
+    padding:10px 6px;
+    min-height:250px;
     overflow:hidden;
   }
+  html[data-theme="dark"] .stage{
+    background:#111c2e;
+  }
+
   .center-line{
     position:absolute;
-    top:34px; bottom:34px;
+    top:25px; bottom:25px;
     left:50%;
     width:1px;
-    border-left: 2px dashed var(--panel-line);
+    border-left: 2px dashed rgba(0,0,0,.15);
     z-index:1;
   }
+  html[data-theme="dark"] .center-line{
+    border-left: 2px dashed rgba(255,255,255,.2);
+  }
+
   .goal-flag{
     position:absolute;
-    top:10px;
+    top:8px;
     font-size:.75rem;
     color:var(--ink-dim);
-    letter-spacing:.03em;
+    letter-spacing:.04em;
     font-family:'Oswald',sans-serif;
+    font-weight:600;
   }
-  .goal-flag.left{left:8%;}
-  .goal-flag.right{right:8%; text-align:right;}
+  .goal-flag.left{left:6%;}
+  .goal-flag.right{right:6%; text-align:right;}
 
   .tug-svg-container {
     width: 100%;
-    height: 180px;
+    height: 190px;
     position: relative;
     z-index: 2;
   }
@@ -367,7 +374,7 @@
     z-index:2;
   }
 
-  /* ---------- Footer / settings row ---------- */
+  /* ---------- Footer / Settings ---------- */
   .footer{
     padding:10px 22px 18px;
     text-align:center;
@@ -512,7 +519,7 @@
       <!-- Team A -->
       <div class="team-panel panel-a" id="panelA">
         <div class="team-head">
-          <div class="team-name" id="nameA">Team Gold</div>
+          <div class="team-name" id="nameA">Team Blue</div>
           <div class="score-badge"><span id="scoreA">0</span><span class="score-of">/<span id="winScoreLabelA">10</span></span></div>
         </div>
         <div class="team-body">
@@ -524,67 +531,96 @@
         </div>
       </div>
 
-      <!-- Rope stage -->
+      <!-- Stage Vector Artwork -->
       <div class="stage">
         <div class="goal-flag left">GOAL</div>
         <div class="goal-flag right">GOAL</div>
         <div class="center-line"></div>
         
         <div class="tug-svg-container">
-          <svg id="tugSvg" viewBox="0 0 500 160" preserveAspectRatio="xMidYMid meet">
+          <svg id="tugSvg" viewBox="0 0 600 180" preserveAspectRatio="xMidYMid meet">
             <defs>
-              <linearGradient id="ropeGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#ffb703"/>
-                <stop offset="50%" stop-color="#c9a66b"/>
-                <stop offset="100%" stop-color="#e5383b"/>
-              </linearGradient>
-              <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-                <feDropShadow dx="0" dy="3" stdDeviation="2" flood-opacity="0.3"/>
-              </filter>
+              <!-- Character Blue Definition (Team A) -->
+              <g id="charBlue">
+                <!-- Back Leg -->
+                <path d="M 28 82 L 48 118 L 36 122 L 18 86 Z" fill="#2d3748"/>
+                <path d="M 48 118 L 62 118 L 58 126 L 36 126 Z" fill="#3b82f6"/>
+                <!-- Front Leg -->
+                <path d="M 12 80 L -12 118 L 0 122 L 24 82 Z" fill="#1a202c"/>
+                <path d="M -12 118 L 2 118 L -2 126 L -20 126 Z" fill="#2563eb"/>
+                <!-- Torso / Jacket -->
+                <path d="M 0 35 L 35 48 L 25 85 L -8 72 Z" fill="#2563eb"/>
+                <path d="M 12 39 L 32 47 L 22 84 L 4 76 Z" fill="#3b82f6"/>
+                <circle cx="20" cy="52" r="3.5" fill="#ef4444"/>
+                <!-- Arms holding rope -->
+                <path d="M 28 46 L 55 58 L 48 65 L 22 53 Z" fill="#2563eb"/>
+                <path d="M -2 40 L 40 56 L 36 62 L -6 46 Z" fill="#1d4ed8"/>
+                <!-- Hands -->
+                <circle cx="52" cy="61" r="4" fill="#fca5a5"/>
+                <circle cx="38" cy="58" r="4" fill="#fca5a5"/>
+                <!-- Head & Cap -->
+                <circle cx="5" cy="22" r="10" fill="#fca5a5"/>
+                <!-- Helmet/Hat -->
+                <path d="M -8 22 C -8 10, 18 10, 18 22 Z" fill="#ffffff"/>
+                <path d="M -10 22 L 20 22 L 20 25 L -10 25 Z" fill="#cbd5e1"/>
+                <circle cx="5" cy="16" r="3" fill="#2563eb"/>
+              </g>
+
+              <!-- Character Red Definition (Team B) -->
+              <g id="charRed">
+                <!-- Back Leg -->
+                <path d="M -28 82 L -48 118 L -36 122 L -18 86 Z" fill="#2d3748"/>
+                <path d="M -48 118 L -62 118 L -58 126 L -36 126 Z" fill="#ef4444"/>
+                <!-- Front Leg -->
+                <path d="M -12 80 L 12 118 L 0 122 L -24 82 Z" fill="#1a202c"/>
+                <path d="M 12 118 L -2 118 L 2 126 L 20 126 Z" fill="#dc2626"/>
+                <!-- Torso / Jacket -->
+                <path d="M 0 35 L -35 48 L -25 85 L 8 72 Z" fill="#dc2626"/>
+                <path d="M -12 39 L -32 47 L -22 84 L -4 76 Z" fill="#ef4444"/>
+                <circle cx="-20" cy="52" r="3.5" fill="#3b82f6"/>
+                <!-- Arms holding rope -->
+                <path d="M -28 46 L -55 58 L -48 65 L -22 53 Z" fill="#dc2626"/>
+                <path d="M 2 40 L -40 56 L -36 62 L 6 46 Z" fill="#b91c1c"/>
+                <!-- Hands -->
+                <circle cx="-52" cy="61" r="4" fill="#fca5a5"/>
+                <circle cx="-38" cy="58" r="4" fill="#fca5a5"/>
+                <!-- Head & Cap -->
+                <circle cx="-5" cy="22" r="10" fill="#fca5a5"/>
+                <!-- Helmet/Hat -->
+                <path d="M 8 22 C 8 10, -18 10, -18 22 Z" fill="#ffffff"/>
+                <path d="M 10 22 L -20 22 L -20 25 L 10 25 Z" fill="#cbd5e1"/>
+                <circle cx="-5" cy="16" r="3" fill="#dc2626"/>
+              </g>
             </defs>
 
-            <!-- Dynamic Rope Path -->
-            <path id="ropePath" d="M 50 90 Q 250 90 450 90" stroke="url(#ropeGrad)" stroke-width="7" fill="none" stroke-linecap="round" filter="url(#shadow)"/>
-            
-            <!-- Center Flag / Marker on Rope -->
-            <g id="ropeFlag" transform="translate(250, 90)">
-              <circle cx="0" cy="0" r="7" fill="#f1c40f" stroke="#b7950b" stroke-width="2" />
-              <polygon points="0,-2 0,-22 14,-12" fill="#e74c3c" />
-            </g>
+            <!-- Ground Shadow -->
+            <ellipse cx="300" cy="160" rx="260" ry="8" fill="rgba(0,0,0,0.06)"/>
 
-            <!-- Team A Pullers (Gold) -->
-            <g id="teamAPullers" transform="translate(0, 0)">
-              <!-- Guy 1 -->
-              <g class="puller-a1" transform="translate(100, 90)">
-                <circle cx="-12" cy="-42" r="8" fill="#f2b783"/>
-                <path d="M-12 -34 L-16 -12 L-22 18 M-16 -12 L-8 18" stroke="#ffb703" stroke-width="7" stroke-linecap="round"/>
-                <path d="M-22 18 L-28 32 M-8 18 L-12 32" stroke="#2b3446" stroke-width="6" stroke-linecap="round"/>
-                <path d="M-14 -26 L6 0" stroke="#f2b783" stroke-width="4" stroke-linecap="round"/>
-              </g>
-              <!-- Guy 2 -->
-              <g class="puller-a2" transform="translate(145, 90)">
-                <circle cx="-12" cy="-42" r="8" fill="#f2b783"/>
-                <path d="M-12 -34 L-16 -12 L-22 18 M-16 -12 L-8 18" stroke="#ffb703" stroke-width="7" stroke-linecap="round"/>
-                <path d="M-22 18 L-28 32 M-8 18 L-12 32" stroke="#2b3446" stroke-width="6" stroke-linecap="round"/>
-                <path d="M-14 -26 L6 0" stroke="#f2b783" stroke-width="4" stroke-linecap="round"/>
-              </g>
-            </g>
+            <!-- Entire Movable Rig -->
+            <g id="ropeRig" transform="translate(0,0)">
+              <!-- Slack rope tails -->
+              <path d="M 20 125 Q 70 145 130 115" stroke="#3a2518" stroke-width="3.5" fill="none"/>
+              <path d="M 580 125 Q 530 145 470 115" stroke="#3a2518" stroke-width="3.5" fill="none"/>
 
-            <!-- Team B Pullers (Crimson) -->
-            <g id="teamBPullers" transform="translate(0, 0)">
-              <!-- Guy 1 -->
-              <g class="puller-b1" transform="translate(355, 90)">
-                <circle cx="12" cy="-42" r="8" fill="#f2b783"/>
-                <path d="M12 -34 L16 -12 L8 18 M16 -12 L22 18" stroke="#e5383b" stroke-width="7" stroke-linecap="round"/>
-                <path d="M8 18 L12 32 M22 18 L28 32" stroke="#2b3446" stroke-width="6" stroke-linecap="round"/>
-                <path d="M14 -26 L-6 0" stroke="#f2b783" stroke-width="4" stroke-linecap="round"/>
+              <!-- Main Stretched Rope -->
+              <line x1="120" y1="114" x2="480" y2="114" stroke="#4a3222" stroke-width="4.5" stroke-linecap="round"/>
+
+              <!-- Red Flag on Center of Rope -->
+              <g id="centerRibbon" transform="translate(300, 114)">
+                <polygon points="0,0 -4,18 4,18" fill="#ef4444"/>
+                <circle cx="0" cy="0" r="3" fill="#fde047"/>
               </g>
-              <!-- Guy 2 -->
-              <g class="puller-b2" transform="translate(400, 90)">
-                <circle cx="12" cy="-42" r="8" fill="#f2b783"/>
-                <path d="M12 -34 L16 -12 L8 18 M16 -12 L22 18" stroke="#e5383b" stroke-width="7" stroke-linecap="round"/>
-                <path d="M8 18 L12 32 M22 18 L28 32" stroke="#2b3446" stroke-width="6" stroke-linecap="round"/>
-                <path d="M14 -26 L-6 0" stroke="#f2b783" stroke-width="4" stroke-linecap="round"/>
+
+              <!-- Team A Pullers -->
+              <g id="teamAGroup">
+                <use href="#charBlue" id="blue1" x="140" y="55"/>
+                <use href="#charBlue" id="blue2" x="210" y="55"/>
+              </g>
+
+              <!-- Team B Pullers -->
+              <g id="teamBGroup">
+                <use href="#charRed" id="red1" x="390" y="55"/>
+                <use href="#charRed" id="red2" x="460" y="55"/>
               </g>
             </g>
           </svg>
@@ -614,7 +650,7 @@
 
   <section class="seo-info">
     <h2>How to Play Tug of War: Math</h2>
-    <p>Tug of War: Math is a free two-team multiplication and times-tables game you can play right in your browser — no download needed. Split your class or family into Team Gold and Team Crimson, or practice against the computer! Each team gets its own question and number pad. Every correct answer pulls the rope toward that team's side; the first team to reach the target score wins the pull.</p>
+    <p>Tug of War: Math is a free two-team multiplication and times-tables game you can play right in your browser — no download needed. Split your class or family into Team Blue and Team Crimson, or practice against the computer! Each team gets its own question and number pad. Every correct answer pulls the rope toward that team's side; the first team to reach the target score wins the pull.</p>
     <h2>Why it's great for practicing math facts</h2>
     <p>Fast, low-pressure repetition is one of the best ways to build fluency with multiplication tables and mental math. The head-to-head format keeps students engaged, works on any phone, tablet, or classroom display, and lets you adjust the number range and win score to match the level of your students.</p>
   </section>
@@ -661,7 +697,7 @@
   <div class="overlay hidden" id="winOverlay">
     <div class="card">
       <div class="win-swatch" id="winSwatch"></div>
-      <h2 id="winTitle">Team Gold wins!</h2>
+      <h2 id="winTitle">Team Blue wins!</h2>
       <p id="winSub">6 points to 3 · 00:52</p>
       <button class="btn btn-primary" id="rematchBtn">Rematch, same settings</button>
       <button class="btn btn-ghost" id="newSettingsBtn">Change settings</button>
@@ -676,7 +712,7 @@
 
   // ---------- State ----------
   const state = {
-    mode: 'ai', // 'human' or 'ai'
+    mode: 'ai',
     winScore: 10,
     range: 10,
     opMode: 'mul',
@@ -690,8 +726,8 @@
     seconds: 0,
     timerId: null,
     aiTimer: null,
-    ropeOffset: 0, // current offset for animation lerp (-100 to 100)
-    targetRopeOffset: 0
+    rigX: 0,       
+    targetRigX: 0 
   };
 
   // ---------- Elements ----------
@@ -723,10 +759,11 @@
     panelB: document.getElementById('panelB'),
     keypadA: document.getElementById('keypadA'),
     keypadB: document.getElementById('keypadB'),
-    ropePath: document.getElementById('ropePath'),
-    ropeFlag: document.getElementById('ropeFlag'),
-    teamAPullers: document.getElementById('teamAPullers'),
-    teamBPullers: document.getElementById('teamBPullers'),
+    ropeRig: document.getElementById('ropeRig'),
+    blue1: document.getElementById('blue1'),
+    blue2: document.getElementById('blue2'),
+    red1: document.getElementById('red1'),
+    red2: document.getElementById('red2'),
     winTitle: document.getElementById('winTitle'),
     winSub: document.getElementById('winSub'),
     winSwatch: document.getElementById('winSwatch'),
@@ -780,7 +817,7 @@
     if(state.aiTimer){ clearTimeout(state.aiTimer); state.aiTimer = null; }
   }
 
-  // ---------- Press Handling ----------
+  // ---------- Controls ----------
   const PRESS_DEBOUNCE_MS = 120;
   const lastPressTime = new WeakMap();
 
@@ -820,7 +857,7 @@
 
   function handleKey(team, label){
     if(!state.active) return;
-    if(state.mode === 'ai' && team === 'B') return; // AI controls team B
+    if(state.mode === 'ai' && team === 'B') return; // Human cannot control AI's panel
     const key = team === 'A' ? 'inputA' : 'inputB';
     if(label === 'C'){
       state[key] = '';
@@ -867,27 +904,21 @@
   function scheduleAiAnswer(){
     if(state.aiTimer) clearTimeout(state.aiTimer);
     
-    // Give human realistic time: AI takes between 3.5 to 6.5 seconds per question
-    const baseDelay = 3500;
-    const randomVariation = Math.random() * 3000;
-    const thinkingTime = baseDelay + randomVariation;
+    // AI thinks between 3.0 to 5.5 seconds per question
+    const thinkingTime = 3000 + Math.random() * 2500;
 
     state.aiTimer = setTimeout(function(){
       if(!state.active || state.mode !== 'ai') return;
       
-      // 85% accuracy so AI occasionally misses to give human a fair advantage
-      const isCorrect = Math.random() < 0.85;
+      const isCorrect = Math.random() < 0.85; // 85% chance of correct answer
+      const val = isCorrect ? state.qB.answer : (state.qB.answer + randInt(1, 4));
       
-      if(isCorrect){
-        state.inputB = state.qB.answer.toString();
-      } else {
-        state.inputB = (state.qB.answer + randInt(1, 5)).toString();
-      }
+      state.inputB = val.toString();
       renderInput('B');
       
-      // Brief pause after typing before pressing submit
+      // Submit answer after visual delay
       setTimeout(function(){
-        if(!state.active) return;
+        if(!state.active || state.mode !== 'ai') return;
         submitAnswer('B');
       }, 400);
 
@@ -910,7 +941,7 @@
       if(team === 'A'){ state.scoreA++; el.scoreA.textContent = state.scoreA; }
       else { state.scoreB++; el.scoreB.textContent = state.scoreB; }
       flash(panel, true);
-      triggerPullAnimation(team);
+      triggerPullImpulse(team);
       updateRopePosition();
       if(checkWin()) return;
       renderQuestion(team);
@@ -920,60 +951,48 @@
       else { 
         state.inputB = ''; 
         renderInput('B'); 
-        if(state.mode === 'ai') scheduleAiAnswer(); // retry on AI mistake
+        if(state.mode === 'ai') scheduleAiAnswer();
       }
     }
   }
 
-  // ---------- SVG Dynamic Animation Logic ----------
+  // ---------- Character Pull & Idle Animations ----------
   let pullPulse = 0;
-  let pullingTeam = null;
+  let activePuller = null;
 
-  function triggerPullAnimation(team){
-    pullingTeam = team;
+  function triggerPullImpulse(team){
+    activePuller = team;
     pullPulse = 1.0;
   }
 
   function updateRopePosition(){
-    const diff = Math.max(-state.winScore, Math.min(state.winScore, state.scoreA - state.scoreB));
-    state.targetRopeOffset = (diff / state.winScore) * 140; // max +/- 140px
+    const diff = state.scoreA - state.scoreB;
+    state.targetRigX = -(diff / state.winScore) * 130;
   }
 
-  function animateLoop(){
-    // Smooth lerp movement toward target
-    state.ropeOffset += (state.targetRopeOffset - state.ropeOffset) * 0.12;
+  function animate(time){
+    state.rigX += (state.targetRigX - state.rigX) * 0.1;
     
-    if(pullPulse > 0) pullPulse -= 0.05;
+    if(pullPulse > 0) pullPulse -= 0.04;
     else pullPulse = 0;
 
-    const shift = state.ropeOffset; // -140 (Left A ahead) to +140 (Right B ahead)
-    const centerX = 250 - shift;
-    const flexY = 90 + Math.sin(Date.now() * 0.005) * 2 + (pullPulse * (pullingTeam === 'A' ? -4 : 4));
+    const heave = Math.sin(time * 0.006) * 3;
+    const extraPullA = (activePuller === 'A' ? pullPulse * 12 : 0);
+    const extraPullB = (activePuller === 'B' ? pullPulse * 12 : 0);
 
-    // Curved Rope Path
-    const pathD = `M ${50 - shift} 90 Q ${centerX} ${flexY} ${450 - shift} 90`;
-    el.ropePath.setAttribute('d', pathD);
+    el.ropeRig.setAttribute('transform', `translate(${state.rigX}, 0)`);
 
-    // Center Flag Location
-    el.ropeFlag.setAttribute('transform', `translate(${centerX}, ${flexY})`);
+    const rotA = -5 + heave - extraPullA;
+    const rotB = 5 - heave + extraPullB;
 
-    // Dynamic Puller Positions & Lean Angles
-    const leanA = -12 - (shift < 0 ? Math.abs(shift)*0.1 : 0) - (pullingTeam === 'A' ? pullPulse * 15 : 0);
-    const leanB = 12 + (shift > 0 ? shift*0.1 : 0) + (pullingTeam === 'B' ? pullPulse * 15 : 0);
+    el.blue1.setAttribute('transform', `translate(140, 55) rotate(${rotA}, 40, 110)`);
+    el.blue2.setAttribute('transform', `translate(210, 55) rotate(${rotA}, 40, 110)`);
+    el.red1.setAttribute('transform', `translate(390, 55) rotate(${rotB}, -40, 110)`);
+    el.red2.setAttribute('transform', `translate(460, 55) rotate(${rotB}, -40, 110)`);
 
-    el.teamAPullers.setAttribute('transform', `translate(${-shift}, 0)`);
-    el.teamBPullers.setAttribute('transform', `translate(${-shift}, 0)`);
-
-    // Rotate pullers based on struggle
-    const pullersA = el.teamAPullers.querySelectorAll('.puller-a1, .puller-a2');
-    pullersA.forEach(p => p.setAttribute('transform', `translate(${p.classList.contains('puller-a1') ? 100 : 145}, 90) rotate(${leanA})`));
-
-    const pullersB = el.teamBPullers.querySelectorAll('.puller-b1, .puller-b2');
-    pullersB.forEach(p => p.setAttribute('transform', `translate(${p.classList.contains('puller-b1') ? 355 : 400}, 90) rotate(${leanB})`));
-
-    requestAnimationFrame(animateLoop);
+    requestAnimationFrame(animate);
   }
-  requestAnimationFrame(animateLoop);
+  requestAnimationFrame(animate);
 
   function checkWin(){
     if(state.scoreA >= state.winScore){ endGame('A'); return true; }
@@ -984,21 +1003,21 @@
   function endGame(winner){
     state.active = false;
     stopTimer();
-    let name = winner === 'A' ? 'Team Gold' : 'Team Crimson';
+    let name = winner === 'A' ? 'Team Blue' : 'Team Crimson';
     if(state.mode === 'ai'){
       name = winner === 'A' ? 'You Win!' : 'Computer Wins!';
     }
-    const color = winner === 'A' ? getComputedStyle(document.documentElement).getPropertyValue('--team-a') : getComputedStyle(document.documentElement).getPropertyValue('--team-b');
+    const color = winner === 'A' ? '#3b82f6' : '#ef4444';
     el.winTitle.textContent = name;
     el.winSwatch.style.background = color;
     el.winSub.textContent = state.scoreA + ' – ' + state.scoreB + ' points · ' + el.timerDisplay.textContent + ' on the clock';
     el.winOverlay.classList.remove('hidden');
-    launchConfetti(winner === 'A' ? '#ffb703' : '#e5383b');
+    launchConfetti(color);
   }
 
   function launchConfetti(color){
     el.confetti.innerHTML = '';
-    const colors = [color, '#f5f3ee', '#c9a66b'];
+    const colors = [color, '#ffffff', '#cbd5e1'];
     for(let i = 0; i < 60; i++){
       const s = document.createElement('span');
       s.style.left = (Math.random() * 100) + 'vw';
@@ -1027,7 +1046,7 @@
       el.nameA.textContent = "You";
       el.nameB.textContent = "Computer";
     } else {
-      el.nameA.textContent = "Team Gold";
+      el.nameA.textContent = "Team Blue";
       el.nameB.textContent = "Team Crimson";
     }
   }
@@ -1035,7 +1054,7 @@
   function newMatch(){
     state.scoreA = 0; state.scoreB = 0;
     el.scoreA.textContent = '0'; el.scoreB.textContent = '0';
-    state.targetRopeOffset = 0;
+    state.targetRigX = 0;
     state.active = true;
     renderQuestion('A');
     renderQuestion('B');
@@ -1044,7 +1063,7 @@
     el.winOverlay.classList.add('hidden');
   }
 
-  // ---------- Wire up ----------
+  // ---------- Setup ----------
   buildKeypad(el.keypadA, 'A');
   buildKeypad(el.keypadB, 'B');
 
@@ -1068,7 +1087,7 @@
     newMatch();
   });
 
-  // ---------- Theme toggle ----------
+  // ---------- Theme Toggle ----------
   const themeToggleBtn = document.getElementById('themeToggle');
   const copyYearEl = document.getElementById('copyYear');
   if(copyYearEl){ copyYearEl.textContent = new Date().getFullYear(); }
